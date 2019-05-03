@@ -1,4 +1,7 @@
 @extends('template')
+
+@section('title', 'Aeronaves')
+
 @section('content')
 @if (count($naves))
 <table class="table table-striped">
