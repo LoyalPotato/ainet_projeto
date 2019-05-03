@@ -17,6 +17,6 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');//->middleware('ativo')
+Route::get('/home', 'HomeController@index')->name('home')->middleware('ativo');
 
 Route::get('/aeronaves', 'AeronavesController@index')->name('naves');

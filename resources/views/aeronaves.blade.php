@@ -1,8 +1,11 @@
 @extends('template')
 
-@section('title', 'Aeronaves')
-
 @section('content')
+
+@auth
+<a href="{{ url('/home') }}">Home</a>
+@endauth
+
 @if (count($naves))
 <table class="table table-striped">
     <thead>

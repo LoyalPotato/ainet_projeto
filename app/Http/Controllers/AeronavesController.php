@@ -12,6 +12,7 @@ class AeronavesController extends Controller
     public function index()
     {
         $naves = Aeronave::all();
-        return view('aeronaves', compact('naves'));
+        $pagetitle = 'Aeronaves';
+        return view('aeronaves', compact('naves', 'pagetitle'));
     }
 }
