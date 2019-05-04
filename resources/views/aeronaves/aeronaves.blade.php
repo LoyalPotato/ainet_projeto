@@ -2,9 +2,8 @@
 
 @section('content')
 
-@auth
 <a href="{{ url('/home') }}">Home</a>
-@endauth
+
 
 @if (count($naves))
 <table class="table table-striped">
@@ -33,4 +32,5 @@
 @else
 <h2>Nao existem aeronaves</h2>
 @endif
+<a href="{{ url('/aeronaves/create') }}"> Nova nave </a>
 @endsection
