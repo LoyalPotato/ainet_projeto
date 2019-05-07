@@ -81,9 +81,9 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Flight Club
                 </div>
-                <p>AGUA BENTA</p>
+                <p>Fight Club ;)</p>
             </div>
         </div>
     </body>

@@ -25,17 +25,15 @@ class PasswordController extends Controller
             'password' => ['required', 'min:8', 'confirmed'],
             'password_confirmation' => ['required']
         ]);
-        dd($user);
+        //TODO: Por as mensagens de erro consistentes
         if (!Hash::check($request->get('old_password'), auth()->user()->getAuthPassword())) {
             return back()->withErrors(['Password nao é igual à anterior']);
         }
-        /* 
-        NOTE: 
-        Aqui meto a nova pass já hashed ou passo a nao hashed e dps faz o hash?
-        
-        */
-        //Hash::make($request->get('password'));
 
-        return redirect()->back();
+        auth()->user()->password = Hash::make($request->get('password'));
+        auth()->user()->save();
+
+        //NOTE: With flash message
+        return redirect()->back()->with('pass_change', 'Password alterada com sucesso!');
     }
 }

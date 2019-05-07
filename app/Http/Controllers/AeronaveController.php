@@ -20,7 +20,7 @@ class AeronaveController extends Controller
      */
     public function index()
     {
-        $naves = Aeronave::all();
+        $naves = Aeronave::paginate(4);
         $pagetitle = 'Aeronaves';
         return view('aeronaves.aeronaves', compact('naves', 'pagetitle'));
     }
@@ -56,7 +56,9 @@ class AeronaveController extends Controller
      */
     public function show(Aeronave $aeronave)
     {
-        //
+        $pagetitle = "Aeronave $aeronave->matricula";
+        $naves = array($aeronave );
+        return view('aeronaves.aeronaves', compact('pagetitle', 'naves'));
     }
 
     /**
@@ -67,7 +69,8 @@ class AeronaveController extends Controller
      */
     public function edit(Aeronave $aeronave)
     {
-        //
+        $pagetitle = "Aeronave $aeronave->matricula";
+        return view('aeronaves.aeronaves_edit', compact('pagetitle', 'aeronave'));
     }
 
     /**
@@ -79,7 +82,7 @@ class AeronaveController extends Controller
      */
     public function update(Request $request, Aeronave $aeronave)
     {
-        //
+        
     }
 
     /**

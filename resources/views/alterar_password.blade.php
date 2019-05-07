@@ -1,4 +1,4 @@
-@extends('template')
+@extends('layouts.app')
 
 @section('content')
 <form method="POST" action="/password">
@@ -28,9 +28,12 @@
     @if ($errors->any())
     <div>
         @foreach ($errors->all() as $error)
-        <li>{{$error}}</li>
+        <ul>{{$error}}</ul>
         @endforeach
     </div>
+    @endif
+    @if (session('pass_change'))
+        <p>{{session('pass_change')}}</p>
     @endif
 </form>
 @endsection
