@@ -63,14 +63,6 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                                </a>
-                                <form id="logout-form" method="POST" action="{{ route('logout') }}"
-                                    style="display: none;">
-                                    @csrf
-                                </form>
                                 <a class="dropdown-item" href="/password" onclick="event.preventDefault();
                                 document.getElementById('alterar_pass').submit();">
                                     {{ __('Alterar Password') }}
@@ -78,6 +70,14 @@
                                 <form id="alterar_pass" method="GET" action="{{route('password')}}"
                                     style="display: none;">
                                     {{-- NOTE: Aqui preciso de por o token? Se puser o token dps é mostrado no URL como é um GET --}}
+                                </form>
+                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+                                <form id="logout-form" method="POST" action="{{ route('logout') }}"
+                                    style="display: none;">
+                                    @csrf
                                 </form>
                             </div>
                         </li>

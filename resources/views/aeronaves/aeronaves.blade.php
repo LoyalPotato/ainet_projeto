@@ -22,6 +22,7 @@
                 <th>Numero de Lugares</th>
                 <th>Horas</th>
                 <th>Preco-hora</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -38,6 +39,13 @@
                 <td>{{$nave->num_lugares}}</td>
                 <td>{{$nave->conta_horas}}</td>
                 <td>{{$nave->preco_hora}}</td>
+                <td>
+                    <form action="/aeronaves" method="POST" role="form" class="inline">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Apagar</button>
+                    </form>
+                </td>
             </tr>
             @endif
             @endforeach

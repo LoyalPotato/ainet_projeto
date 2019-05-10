@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Movimento;
 
 class MovimentosController extends Controller
 {
     public function index()
     {        
-         $this->authorize('list', Movimento::class);
+        //  $this->authorize('list', Movimento::class);
         $movimentos = Movimento::all();
         return view('movimentos.index', compact('movimentos'));
     }

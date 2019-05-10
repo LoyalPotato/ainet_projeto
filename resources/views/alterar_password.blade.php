@@ -21,7 +21,7 @@
             <input type="password" name="password_confirmation" id="confirm_passwd" required>
 
         </div>
-        <input type="submit" value="Confirmar">
+        <input class="btn btn-outline-primary m-2" type="submit" value="Confirmar">
 
 
         @if ($errors->any())
