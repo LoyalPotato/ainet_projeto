@@ -24,3 +24,29 @@ Route::patch('/password', 'PasswordController@update');
 
 //NOTE: Rotas aeronaves
 Route::resource('aeronaves', 'AeronaveController')->parameters(['aeronaves' => 'aeronave']);
+
+
+
+//----------------------------------------------------Dinis------------------------------------------------------
+
+
+
+Route::get('movimentos', 'MovimentosController@index')->name('movimentos.index');
+
+Route::get('movimentos/{movimento}/edit','MovimentosController@edit')->name('movimentos.edit');
+
+
+
+Route::get('movimentos/create','MovimentosController@create')->name('movimentos.create');
+
+
+Route::post('movimentos', 'MovimentosController@store')->name('movimentos.store');
+
+
+Route::put('movimentos/{movimento}', 'MovimentosController@update')->name('movimentos.update');
+
+
+
+Route::get('movimentos/estatisticas','MovimentosController@estatistica')->name('movimentos.estatistica');
+
+
