@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Aeronave;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -12,8 +10,6 @@ class AeronaveController extends Controller
     {
         $this->middleware('auth');
     }
-
-
     /**
      * Display a listing of the resource.
      *
@@ -26,7 +22,6 @@ class AeronaveController extends Controller
         $naves_valores = DB::table('aeronaves_valores')->get();
         return view('aeronaves.aeronaves', compact('naves', 'pagetitle', 'naves_valores'));
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -37,7 +32,6 @@ class AeronaveController extends Controller
         $pagetitle = 'Criar nova aeronave';
         return view('aeronaves.aeronaves_create', compact('pagetitle'));
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -51,7 +45,6 @@ class AeronaveController extends Controller
             //NOTE: Aqui vai ter as propriedades da nova nave
         ]);
     }
-
     /**
      * Display the specified resource.
      *
@@ -65,7 +58,6 @@ class AeronaveController extends Controller
         $naves_valores = DB::table('aeronaves_valores')->get();
         return view('aeronaves.aeronaves', compact('pagetitle', 'naves', 'naves_valores'));
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -79,7 +71,6 @@ class AeronaveController extends Controller
                                                         ->get();
         return view('aeronaves.aeronaves_edit', compact('pagetitle', 'aeronave', 'naves_valores'));
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -92,7 +83,6 @@ class AeronaveController extends Controller
 
         return redirect('/aeronaves');
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -103,6 +93,5 @@ class AeronaveController extends Controller
     {
         //
     }
-
-
+    
 }
