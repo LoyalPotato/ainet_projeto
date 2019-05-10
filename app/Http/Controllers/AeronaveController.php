@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Aeronave;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AeronaveController extends Controller
 {
@@ -20,9 +21,10 @@ class AeronaveController extends Controller
      */
     public function index()
     {
-        $naves = Aeronave::paginate(4);
+        $naves = Aeronave::paginate(5);
         $pagetitle = 'Aeronaves';
-        return view('aeronaves.aeronaves', compact('naves', 'pagetitle'));
+        $naves_valores = DB::table('aeronaves_valores')->get();
+        return view('aeronaves.aeronaves', compact('naves', 'pagetitle', 'naves_valores'));
     }
 
     /**
@@ -34,7 +36,6 @@ class AeronaveController extends Controller
     {
         $pagetitle = 'Criar nova aeronave';
         return view('aeronaves.aeronaves_create', compact('pagetitle'));
-   
     }
 
     /**
@@ -45,7 +46,10 @@ class AeronaveController extends Controller
      */
     public function store(Request $request)
     {
+        Aeronave::create([
 
+            //NOTE: Aqui vai ter as propriedades da nova nave
+        ]);
     }
 
     /**
@@ -57,8 +61,9 @@ class AeronaveController extends Controller
     public function show(Aeronave $aeronave)
     {
         $pagetitle = "Aeronave $aeronave->matricula";
-        $naves = array($aeronave );
-        return view('aeronaves.aeronaves', compact('pagetitle', 'naves'));
+        $naves = array($aeronave);
+        $naves_valores = DB::table('aeronaves_valores')->get();
+        return view('aeronaves.aeronaves', compact('pagetitle', 'naves', 'naves_valores'));
     }
 
     /**
@@ -70,7 +75,9 @@ class AeronaveController extends Controller
     public function edit(Aeronave $aeronave)
     {
         $pagetitle = "Aeronave $aeronave->matricula";
-        return view('aeronaves.aeronaves_edit', compact('pagetitle', 'aeronave'));
+        $naves_valores = DB::table('aeronaves_valores')->where('matricula','=', $aeronave->matricula)
+                                                        ->get();
+        return view('aeronaves.aeronaves_edit', compact('pagetitle', 'aeronave', 'naves_valores'));
     }
 
     /**
@@ -81,8 +88,9 @@ class AeronaveController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Aeronave $aeronave)
-    {
-        
+    { 
+
+        return redirect('/aeronaves');
     }
 
     /**
@@ -95,4 +103,6 @@ class AeronaveController extends Controller
     {
         //
     }
+
+
 }

@@ -3,9 +3,8 @@
 @section('content')
 
 <div class="container">
-    <a class="btn btn-outline-primary m-3" href="{{ url('/home') }}">Home</a>
     @if (count($naves)>1)
-    <a class="btn btn-outline-primary" href="{{ url('/aeronaves/create') }}"> Nova nave </a>
+    <a class="btn btn-outline-primary mb-2 float-right " href="{{ url('/aeronaves/create') }}"> Nova nave </a>
     @endif
 </div>
 

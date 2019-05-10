@@ -1,4 +1,6 @@
 @extends('layouts.app')
+{{-- NOTE: Aqui é para editar a tabela dos valores tbm? Tipo redefinir os preços por tempo?
+    Nao percebo o que é para por nos campos tempos[] e precos[] --}}
 
 @section('content')
 @auth

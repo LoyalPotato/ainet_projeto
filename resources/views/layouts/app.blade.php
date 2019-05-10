@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Flight Club') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -25,8 +25,11 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
+                <a class="navbar-brand mr-5" href="{{ url('/home') }}">
+                    Home
+                </a>
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    {{ config('app.name', 'Flight Club') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -64,7 +67,7 @@
                                                      document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>
-                                <form id="logout-form" method="POST" action="{{ route('logout') }}" 
+                                <form id="logout-form" method="POST" action="{{ route('logout') }}"
                                     style="display: none;">
                                     @csrf
                                 </form>
@@ -72,7 +75,8 @@
                                 document.getElementById('alterar_pass').submit();">
                                     {{ __('Alterar Password') }}
                                 </a>
-                                <form id="alterar_pass" method="GET" action="{{route('password')}}"  style="display: none;">
+                                <form id="alterar_pass" method="GET" action="{{route('password')}}"
+                                    style="display: none;">
                                     {{-- NOTE: Aqui preciso de por o token? Se puser o token dps é mostrado no URL como é um GET --}}
                                 </form>
                             </div>

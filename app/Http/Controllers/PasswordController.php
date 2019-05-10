@@ -27,9 +27,16 @@ class PasswordController extends Controller
         ]);
         //TODO: Por as mensagens de erro consistentes
         if (!Hash::check($request->get('old_password'), auth()->user()->getAuthPassword())) {
-            return back()->withErrors(['Password nao é igual à anterior']);
+            // $request->session()->flash('old_password','Password nao é igual à anterior');
+            return back()->with('old_password','Password nao é igual à anterior');
         }
 
+        /* 
+        BUG: 
+        Session is missing expected key [errors].
+        Da-me isto no teste US05
+        */
+        //NOTE: Nao posso usar o User que é passado na funçao? Nao é o que esta a fazer o pedido?
         auth()->user()->password = Hash::make($request->get('password'));
         auth()->user()->save();
 
