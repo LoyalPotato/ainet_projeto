@@ -1,18 +1,13 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Aeronave;
 use Illuminate\Http\Request;
-
 class AeronaveController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
     }
-
-
     /**
      * Display a listing of the resource.
      *
@@ -24,7 +19,6 @@ class AeronaveController extends Controller
         $pagetitle = 'Aeronaves';
         return view('aeronaves.aeronaves', compact('naves', 'pagetitle'));
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -36,7 +30,6 @@ class AeronaveController extends Controller
         return view('aeronaves.aeronaves_create', compact('pagetitle'));
    
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -45,9 +38,7 @@ class AeronaveController extends Controller
      */
     public function store(Request $request)
     {
-
     }
-
     /**
      * Display the specified resource.
      *
@@ -60,7 +51,6 @@ class AeronaveController extends Controller
         $naves = array($aeronave );
         return view('aeronaves.aeronaves', compact('pagetitle', 'naves'));
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -72,7 +62,6 @@ class AeronaveController extends Controller
         $pagetitle = "Aeronave $aeronave->matricula";
         return view('aeronaves.aeronaves_edit', compact('pagetitle', 'aeronave'));
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -84,7 +73,6 @@ class AeronaveController extends Controller
     {
         
     }
-
     /**
      * Remove the specified resource from storage.
      *

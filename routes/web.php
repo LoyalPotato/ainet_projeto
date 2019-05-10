@@ -17,18 +17,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home')->middleware('ativo');
-
-Route::get('/password', 'PasswordController@index')->name('password');
-Route::patch('/password', 'PasswordController@update');
-
-//NOTE: Rotas aeronaves
-Route::resource('aeronaves', 'AeronaveController')->parameters(['aeronaves' => 'aeronave']);
-
-
-
-//----------------------------------------------------Dinis------------------------------------------------------
-
+Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::get('movimentos', 'MovimentosController@index')->name('movimentos.index');
@@ -50,3 +39,12 @@ Route::put('movimentos/{movimento}', 'MovimentosController@update')->name('movim
 Route::get('movimentos/estatisticas','MovimentosController@estatistica')->name('movimentos.estatistica');
 
 
+
+
+
+//---------------Copiado----------------- 
+
+Route::get('/password', 'PasswordController@index')->name('password');
+Route::patch('/password', 'PasswordController@update');
+//NOTE: Rotas aeronaves
+Route::resource('aeronaves', 'AeronaveController')->parameters(['aeronaves' => 'aeronave']);
