@@ -40,6 +40,7 @@ Route::get('movimentos/estatisticas','MovimentosController@estatistica')->name('
 Route::get('password', 'PasswordController@index')->name('password');
 Route::patch('password', 'PasswordController@update');
 //NOTE: Rotas aeronaves
+Route::get('/aeronaves/{aeronave}/precos_tempos', 'AeronaveController@showValores')->name('aeronaves_precos');
 Route::resource('aeronaves', 'AeronaveController')->parameters(['aeronaves' => 'aeronave']);
 
 

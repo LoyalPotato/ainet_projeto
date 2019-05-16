@@ -24,7 +24,6 @@ class UserController extends Controller
 
     public function create()
     {
-        // $this->authorize('create', User::class); //verificacao user
         $user = new User;
         $pagetitle = "Adicionar um sócio";
         return view('users.add', compact('user', 'pagetitle'));
@@ -32,7 +31,6 @@ class UserController extends Controller
 
     public function store(StoreUserRequest $request)
     {
-        $this->authorize('create', User::class); //verificacao user
         $user = new User();
         $user->fill($request->all());
         $user->password = Hash::make($request->password);

@@ -54,7 +54,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                         </li>
-                        @endif NOTE: Commented to remove Register option temp.--}}
+                        @endif  --}}
+                       
+                        {{-- NOTE: Commented to remove Register option temp. --}}
                         @else
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
@@ -63,14 +65,10 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/password" onclick="event.preventDefault();
-                                document.getElementById('alterar_pass').submit();">
+                                <a class="dropdown-item" href="/password" >
                                     {{ __('Alterar Password') }}
                                 </a>
-                                <form id="alterar_pass" method="GET" action="{{route('password')}}"
-                                    style="display: none;">
-                                    {{-- NOTE: Aqui preciso de por o token? Se puser o token dps é mostrado no URL como é um GET --}}
-                                </form>
+
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}

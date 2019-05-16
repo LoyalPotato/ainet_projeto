@@ -16,21 +16,25 @@
             <label for="modelo" class="mr-2">Modelo</label>
             <input type="text" name="modelo" id="modelo" value="{{ old('modelo') }}">
         </div>
-        <div class="container">
-            <label for="num_lugares" class="mr-2">Numero de Lugares</label>
-            <input type="text" name="num_lugares" id="num_lugares" value="{{ old('num_lugares') }}">
-        </div>
+        
+        
         <div class="container">
             <label for="conta_horas" class="mr-2">Conta-Horas</label>
-            <input type="text" name="conta_horas" id="conta_horas" value="{{ old('conta_horas') }}">
+            <input type="number" name="conta_horas" id="conta_horas" value="{{ old('conta_horas') }}">
         </div>
         <div class="container">
             <label for="preco_hora" class="mr-2">Preco-Hora</label>
-            <input type="text" name="preco_hora" id="preco_hora" value="{{ old('preco_hora') }}">
+            <input type="number" name="preco_hora" id="preco_hora" value="{{ old('preco_hora') }}">
         </div>
+        
         <div class="container">
             <label for="tempos" class="mr-2">Tempos</label>
-            {{-- TODO: Ver a parte do conta-horas, tempos, preços --}}
+            <input type="number" name="tempos[]" id="tempos">
+        </div>
+
+        <div class="container">
+            <label for="precos" class="mr-2">Precos</label>
+            <input type="number" name="precos[]" id="precos">
         </div>
         <input class="btn btn-outline-primary m-2" type="submit" value="Confirmar">
 
