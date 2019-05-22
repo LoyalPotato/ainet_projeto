@@ -22,24 +22,10 @@
             <input class="form-control" type="password" name="password_confirmation" id="confirm_passwd" required>
         </div>
 
-
-        @if ($errors->any())
-        <div>
-            @foreach ($errors->all() as $error)
-            <ul>{{$error}}</ul>
-            @endforeach
-        </div>
-        @endif
-        @if (session('pass_change'))
-        <p>{{session('pass_change')}}</p>
-        @endif
-        {{-- @if (session('old_password'))
-        <p>{{session('old_password')}}</p>
-        @endif --}}
+        @include('layouts.errors')
+        
+        <button class="btn btn-outline-primary m-2 " type="submit">Confirmar </button>
     </form>
-</div>
-<div class="container">
-    <input class="btn btn-outline-primary m-2 " type="submit" value="Confirmar">
 </div>
 
 @endsection
