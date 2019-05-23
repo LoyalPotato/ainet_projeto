@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Auth;
 
 class SocioAtivo
@@ -29,7 +29,7 @@ class SocioAtivo
             return $next($request);
         }
         Auth::logout();
-        throw new UnauthorizedHttpException("Utilizador nao esta ativo");
+        throw new AuthorizationException("Utilizador nao esta ativo");
         
     }
 }

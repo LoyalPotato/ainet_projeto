@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Aeronave;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\StoreAeronave;
+use App\AeronaveValor;
 
 class AeronaveController extends Controller
 {
@@ -40,12 +42,19 @@ class AeronaveController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreAeronave $request)
     {
-        // Aeronave::create([
-
-        //     //NOTE: Aqui vai ter as propriedades da nova nave
-        // ]);
+        // NOTE: Tem (user) autorizacao para criar Definido no store aero
+        $this->authorize('create', Aeronave::class);
+        $validated = $request->validated();
+        //NOTE: Splice para separar os valores dos dados da nave
+        $naves_valores = array_splice($validated, 6, count($validated));
+        Aeronave::create($validated);
+        for ($i=1; $i <= 10; $i++) { 
+            $test = AeronaveValor::create(['matricula'=> $validated['matricula'], 
+            'unidade_conta_horas'=>$i, 'minutos' => $naves_valores['tempos'][$i-1],
+           'preco'=> $naves_valores['precos'][$i-1]]);
+        }
 
         return redirect('/aeronaves');
     }

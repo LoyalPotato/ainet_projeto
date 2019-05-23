@@ -1,5 +1,7 @@
 {{-- Criada para mostrar o mapa que cruza as unidades --}}
-<h3>Tabela de Valores:</h3>
+<p>
+    <h3>Tabela de Valores:</h3>
+</p>
 <table class="table table-sm table-striped">
     <thead>
         <tr>
@@ -19,4 +21,3 @@
         </tr>
         @endforeach
 </table>
-{{-- NOTE: Estes valores podem ser editados pelo  --}}

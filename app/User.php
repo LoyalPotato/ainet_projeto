@@ -4,17 +4,25 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
 
+    use SoftDeletes;
     use Notifiable;
     /**
      *
      * @var array
      */
+    // NOTE: Verify if all these should be fillable
+    /*
+    To prevent mass-assignment vulnerability, models (by default) don't support
+    mass assignment. Model's attributes $fillable (white list) and $guarded (black
+    list) specify which attributes can be mass assignable 
+     */
     protected $fillable = [
-        'name', 'numeroSocio', 'nomeInformal',
+        'name', 'num_socio', 'nomeInformal',
         'dataNascimento', 'email', 'foto', 'nif', 'telefone',
         'endereco', 'tipoSocio', 'quotasEmDia', 'socioAtivo',
         'passwordInicial','direcao', 'direcao','sexo','password'
