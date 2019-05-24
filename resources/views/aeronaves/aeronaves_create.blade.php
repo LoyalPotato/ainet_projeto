@@ -34,7 +34,6 @@
             <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1">Unidade Conta-Hora: {{$i}}</span>
             </div>
-            {{-- <label for="tempos" class="mr-2">Tempos</label> --}}
             <div class="container">
                 <label for="precos" class="my-2">Minutos: </label>
                 <input type="number" max="60" class="form-control" name="tempos[]" id="tempos" value="{{5*$i}}">
@@ -46,7 +45,7 @@
         </form>
     </div>
 {{-- NOTE: No create é preciso ter a tabela dos outros? --}}
-    <div class="container">
+    {{-- <div class="container">
     @include('aeronaves.aeronaves_valores')
-</div>
+    </div> --}}
 @endsection

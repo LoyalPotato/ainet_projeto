@@ -34,8 +34,8 @@ class StoreAeronave extends FormRequest
             'num_lugares' => 'required',
             'conta_horas' => 'required',
             'preco_hora' => 'required',
-            'tempos' => 'required',
-            'precos' => 'required',
+            'tempos' => ['required', 'min:5', 'max:60'], //NOTE: Como teste se isto está a funcionar
+            'precos' => ['required', 'min:1'],
         ];
     }
 

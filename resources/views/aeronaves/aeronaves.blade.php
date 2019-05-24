@@ -2,7 +2,6 @@
 
 @section('content')
 
-{{-- {{var_dump(Auth::user()->can('create', Aeronave::class))}} --}}
 @can('create', App\Aeronave::class)
 <div class="container">
     @if (count($naves)>1)
@@ -33,7 +32,7 @@
             @if ($nave->deleted_at == null )
             <tr>
                 <td>
-                <a href="{{route('aeronaves.show', $nave->matricula)}}">
+                    <a href="{{route('aeronaves.show', $nave->matricula)}}">
                         {{$nave->matricula}}
                     </a>
                 </td>
@@ -43,7 +42,11 @@
                 <td>{{$nave->conta_horas}}</td>
                 <td>{{$nave->preco_hora}}</td>
                 <td>
-                    <form action="{{route('aeronaves.destroy', $nave->matricula)}}" method="POST" role="form" class="inline">
+                    @can('update', $nave)
+                    <a class="btn btn-outline-primary mb-2 float-left" href="{{route('aeronaves.edit', $nave->matricula)}}"> Editar </a>
+                    @endcan
+                    <form action="{{route('aeronaves.destroy', $nave->matricula)}}" method="POST" role="form"
+                        class="inline">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Apagar</button>
@@ -53,11 +56,16 @@
             @endif
             @endforeach
     </table>
-    @if (count($naves)  > 1)
+    @if (count($naves) > 1)
     {{ $naves->links() }}
     @endif
     {{-- @include('aeronaves.aeronaves_valores') --}}
-
+    {{-- NOTE: Se a rota for a de uma só nave 
+    @if (Route::currentRouteName() == 'aeronaves.show')
+    @can('update', Aeronave::class)
+    <button class="btn btn-outline-primary mb-2 float-left" type="submit">Editar</button>
+    @endcan
+    @endif --}}
 
 </div>
 {{-- Esta linha serve para paginaçao. Sao enviadas quatro naves --}}

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreAeronave;
 use App\AeronaveValor;
+use App\Http\Requests\UpdateAeronaveRequest;
 
 class AeronaveController extends Controller
 {
@@ -33,8 +34,8 @@ class AeronaveController extends Controller
     public function create()
     {
         $pagetitle = 'Criar nova aeronave';
-        $naves_valores = DB::table('aeronaves_valores')->get();
-        return view('aeronaves.aeronaves_create', compact('pagetitle', 'naves_valores'));
+        // $naves_valores = DB::table('aeronaves_valores')->get(); , 'naves_valores'
+        return view('aeronaves.aeronaves_create', compact('pagetitle'));
     }
     /**
      * Store a newly created resource in storage.
@@ -50,10 +51,12 @@ class AeronaveController extends Controller
         //NOTE: Splice para separar os valores dos dados da nave
         $naves_valores = array_splice($validated, 6, count($validated));
         Aeronave::create($validated);
-        for ($i=1; $i <= 10; $i++) { 
-            $test = AeronaveValor::create(['matricula'=> $validated['matricula'], 
-            'unidade_conta_horas'=>$i, 'minutos' => $naves_valores['tempos'][$i-1],
-           'preco'=> $naves_valores['precos'][$i-1]]);
+        for ($i = 1; $i <= 10; $i++) {
+            $test = AeronaveValor::create([
+                'matricula' => $validated['matricula'],
+                'unidade_conta_horas' => $i, 'minutos' => $naves_valores['tempos'][$i - 1],
+                'preco' => $naves_valores['precos'][$i - 1]
+            ]);
         }
 
         return redirect('/aeronaves');
@@ -68,7 +71,7 @@ class AeronaveController extends Controller
     {
         $pagetitle = "Aeronave $aeronave->matricula";
         $naves = array($aeronave);
-        $naves_valores = DB::table('aeronaves_valores')->get();
+        $naves_valores = $aeronave->valores;
         return view('aeronaves.aeronaves', compact('pagetitle', 'naves', 'naves_valores'));
     }
 
@@ -99,9 +102,7 @@ class AeronaveController extends Controller
     public function edit(Aeronave $aeronave)
     {
         $pagetitle = "Aeronave $aeronave->matricula";
-        $naves_valores = DB::table('aeronaves_valores')->where('matricula', '=', $aeronave->matricula)
-            ->get();
-        return view('aeronaves.aeronaves_edit', compact('pagetitle', 'aeronave', 'naves_valores'));
+        return view('aeronaves.aeronaves_edit', compact('pagetitle', 'aeronave'));
     }
     /**
      * Update the specified resource in storage.
@@ -112,7 +113,8 @@ class AeronaveController extends Controller
      */
     public function update(Request $request, Aeronave $aeronave)
     {
-
+        $this->authorize('update', $aeronave);
+        //TODO:
         return redirect('/aeronaves');
     }
     /**
@@ -123,18 +125,21 @@ class AeronaveController extends Controller
      */
     public function destroy(Aeronave $aeronave)
     {
+        $this->authorize('delete', $aeronave);
         /* 
+        As aeronaves são removidas com soft deletes se estiverem associados a algum movimento.
+        Caso contrário, os registos deverão ser apagados da base de dados.
         Apaga uma aeronave. Apaga também o mapa que cruza as unidades do
         conta-horas com o tempo e preço. Se não for possível apagar a
         aeronave, faz um "softdelete" sem apagar o mapa
         */
-        /* 
-        TODO: Verificacao se 'e possivel apagar ou nao a nave
-        Aeronave::delete();
-        $valores_to_delete = DB::table('aeronaves_valores')->where('matricula','=', $aeronave->matricula)
-                                                            ->get();
-        
-        */
+        if ($aeronave->movimentos->isEmpty()) {
+            $aeronave->forceDelete();
+            $aeronave->valores()->delete();
+        } else {
+            $aeronave->delete();
+            // $aeronave->valores()->delete(); NOTE: Aqui tbm é preciso fazer soft delete dos valores?
+        }
         return redirect()->back();
     }
 }

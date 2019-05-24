@@ -3,10 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class AeronaveValor extends Model
 {
-
     //
     protected $fillable = [
         'minutos', 'preco', 'matricula', 'unidade_conta_horas'

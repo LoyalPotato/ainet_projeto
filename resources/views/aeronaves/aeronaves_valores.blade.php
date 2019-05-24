@@ -12,7 +12,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach ($naves_valores as $valor)
+        @foreach ($aeronave->valores as $valor)
         <tr>
             <td>{{$valor->matricula}}</td>
             <td>{{$valor->unidade_conta_horas}}</td>

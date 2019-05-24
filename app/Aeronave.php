@@ -24,6 +24,11 @@ conta_horas, preco_hora, tempos[], precos[ ]
 
     public function valores()
     {
-        return $this->hasMany('App\AeronaveValor');
+        return $this->hasMany('App\AeronaveValor', 'matricula');
+    }
+
+    public function movimentos()
+    {
+        return $this->hasMany('App\Movimento','aeronave','matricula');
     }
 }

@@ -42,7 +42,7 @@ class AeronavePolicy
      */
     public function update(User $user, Aeronave $aeronave)
     {
-        //
+        return $user->direcao;
     }
 
     /**
@@ -54,7 +54,7 @@ class AeronavePolicy
      */
     public function delete(User $user, Aeronave $aeronave)
     {
-        //
+        return $user->direcao;
     }
 
     /**
@@ -65,18 +65,6 @@ class AeronavePolicy
      * @return mixed
      */
     public function restore(User $user, Aeronave $aeronave)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the aeronave.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Aeronave  $aeronave
-     * @return mixed
-     */
-    public function forceDelete(User $user, Aeronave $aeronave)
     {
         //
     }
