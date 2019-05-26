@@ -31,6 +31,19 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Flight Club') }}
                 </a>
+
+                <a class="navbar-brand" href="{{ url('/socios') }}">
+                    Sócios
+                </a>
+
+                <a class="navbar-brand" href="{{ url('/aeronaves') }}">
+                    Aeronaves
+                </a>
+
+                <a class="navbar-brand" href="{{ url('/movimentos') }}">
+                    Movimentos
+                </a>
+
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="{{ __('Toggle navigation') }}">
@@ -40,7 +53,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                    
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -54,9 +67,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                         </li>
-                        @endif  --}}
-                       
-                        {{-- NOTE: Commented to remove Register option temp. --}}
+                        @endif NOTE: Commented to remove Register option temp.--}}
                         @else
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
@@ -65,10 +76,14 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/password" >
+                                <a class="dropdown-item" href="/password" onclick="event.preventDefault();
+                                document.getElementById('alterar_pass').submit();">
                                     {{ __('Alterar Password') }}
                                 </a>
-
+                                <form id="alterar_pass" method="GET" action="{{route('password')}}"
+                                    style="display: none;">
+                                    {{-- NOTE: Aqui preciso de por o token? Se puser o token dps é mostrado no URL como é um GET --}}
+                                </form>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}

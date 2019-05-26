@@ -52,7 +52,7 @@ class AeronaveController extends Controller
         $naves_valores = array_splice($validated, 6, count($validated));
         Aeronave::create($validated);
         for ($i = 1; $i <= 10; $i++) {
-            $test = AeronaveValor::create([
+            AeronaveValor::create([
                 'matricula' => $validated['matricula'],
                 'unidade_conta_horas' => $i, 'minutos' => $naves_valores['tempos'][$i - 1],
                 'preco' => $naves_valores['precos'][$i - 1]
@@ -111,10 +111,12 @@ class AeronaveController extends Controller
      * @param  \App\Aeronave  $aeronave
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Aeronave $aeronave)
+    public function update(UpdateAeronaveRequest $request, Aeronave $aeronave)
     {
         $this->authorize('update', $aeronave);
-        //TODO:
+        $validated = $request->validated();
+        $aeronave->updateNave($validated, $aeronave);
+        dd($aeronave);
         return redirect('/aeronaves');
     }
     /**
@@ -138,7 +140,6 @@ class AeronaveController extends Controller
             $aeronave->valores()->delete();
         } else {
             $aeronave->delete();
-            // $aeronave->valores()->delete(); NOTE: Aqui tbm é preciso fazer soft delete dos valores?
         }
         return redirect()->back();
     }

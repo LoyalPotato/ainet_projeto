@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreAeronave extends FormRequest
+class UpdateAeronaveRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,12 +23,8 @@ class StoreAeronave extends FormRequest
      */
     public function rules()
     {
-        /* 
-        matricula, marca, modelo, num_lugares,
-        conta_horas, preco_hora, tempos[], precos[ ]
-        */
         return [
-            'matricula' => ['required', 'unique:aeronaves', 'max:8'],
+            'matricula' => ['required', 'max:8'],
             'marca' => ['required', 'max:40'],
             'modelo' => ['required', 'max:40'],
             'num_lugares' => ['required','min:1', 'integer'],
@@ -38,12 +34,4 @@ class StoreAeronave extends FormRequest
             'precos' => ['required', 'min:1'],
         ];
     }
-    
-    public function messages()
-    {
-        return[
-            'matricula.max' => 'Matricula superior a 8 caracteres'
-        ];
-    }
-
 }

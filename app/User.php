@@ -8,24 +8,21 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-
     use SoftDeletes;
     use Notifiable;
     /**
      *
      * @var array
      */
-    // NOTE: Verify if all these should be fillable
-    /*
-    To prevent mass-assignment vulnerability, models (by default) don't support
-    mass assignment. Model's attributes $fillable (white list) and $guarded (black
-    list) specify which attributes can be mass assignable 
-     */
     protected $fillable = [
-        'name', 'num_socio', 'nomeInformal',
-        'dataNascimento', 'email', 'foto', 'nif', 'telefone',
-        'endereco', 'tipoSocio', 'quotasEmDia', 'socioAtivo',
-        'passwordInicial','direcao', 'direcao','sexo','password'
+        'name', 'num_socio', 'nome_informal',
+        'data_nascimento', 'email', 'foto_url', 'nif', 'telefone',
+        'endereco', 'tipo_socio', 'quota_paga', 'ativo',
+        'password_inicial', 'passwordConfirmation', 'direcao',
+        'sexo','password', 'aluno', 'instrutor', 'num_licenca',
+        'tipo_licenca', 'validade_licenca', 'licença_confirmada',
+        'num_certificado', 'classe_certificado', 'validade_certificado',
+        'certificado_confirmado'
     ];
 
     /**
@@ -34,7 +31,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'passwordConfirmation', 'remember_token'
     ];
      /**
      * The attributes that should be cast to native types.
@@ -42,58 +39,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'email_verified_at' => 'datetime', // I dont get it :p
     ];
 
-    public function tipoSocio()
-    {
-        switch ($this->tipo_socio) {
-            case 0:
-                return 'Piloto';
-            case 1:
-                return 'Nao Piloto';
-            case 2:
-                return 'Aeromodelista';
-        }
-
-        return 'Unknown';
-    }
-
-    public function Sexo()
-    {
-      switch ($this->sexo) {
-          case 0:
-              return 'Masculino';
-          case 1:
-              return 'Feminino';
-      }
-
-      return 'Unknown';
-    }
-
-    public function isPiloto()
-    {
-        return $this->tipoSocio === '0';
-    }
-
-    public function isNaoPiloto()
-    {
-        return $this->tipoSocio === '1';
-    }
-
-    public function isAeromodelista()
-    {
-        return $this->tipoSocio === '2';
-    }
-
-    public function isMasculino()
-    {
-        return $this->sexo === '0';
-    }
-
-    public function isFeminino()
-    {
-        return $this->sexo === '1';
-    }
+    
 
 }
