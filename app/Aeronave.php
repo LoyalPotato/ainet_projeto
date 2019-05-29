@@ -3,15 +3,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Http\Requests\UpdateAeronaveRequest;
 
 class Aeronave extends Model
 {
     use SoftDeletes;
-    /* 
-    matricula, marca, modelo, num_lugares,
-conta_horas, preco_hora, tempos[], precos[ ]
-    */
+   
     protected $fillable = [
         'matricula', 'marca', 'modelo', 'num_lugares',
         'conta_horas', 'preco_hora',
@@ -35,16 +31,16 @@ conta_horas, preco_hora, tempos[], precos[ ]
 
     public function updateNave($request, Aeronave $aeronave)
     {
-        $naves_valores = array_splice($request, 6, count($request));
-        $naves_valores['matricula'] =  $request['matricula'];
-        foreach ($aeronave->valores as $valor) {
-            $valor->matricula =  $request['matricula'];
-            $valor->minutos =  $naves_valores['tempos'][$valor->unidade_conta_horas];
-            $valor->preco = $naves_valores['precos'][$valor->unidade_conta_horas];
-            $valor->save();
-        }
-        
+        $naves_valores = array_splice($request, -2, count($request));
         $aeronave->fill($request);
         $aeronave->save();
+        foreach ($aeronave->valores as $valor) {
+            $valor->fill([
+            'minutos'=> $naves_valores['tempos'][$valor->unidade_conta_horas - 1],
+           'preco' => $naves_valores['precos'][$valor->unidade_conta_horas - 1]
+            ]);
+            $valor->save();
+        }
+
     }
 }

@@ -116,7 +116,6 @@ class AeronaveController extends Controller
         $this->authorize('update', $aeronave);
         $validated = $request->validated();
         $aeronave->updateNave($validated, $aeronave);
-        dd($aeronave);
         return redirect('/aeronaves');
     }
     /**

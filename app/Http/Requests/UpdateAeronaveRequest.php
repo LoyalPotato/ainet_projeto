@@ -24,7 +24,6 @@ class UpdateAeronaveRequest extends FormRequest
     public function rules()
     {
         return [
-            'matricula' => ['required', 'max:8'],
             'marca' => ['required', 'max:40'],
             'modelo' => ['required', 'max:40'],
             'num_lugares' => ['required','min:1', 'integer'],

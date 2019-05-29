@@ -8,14 +8,15 @@
 
 <div class="container">
     @include('layouts.errors')
+    <div class="container">
+        <p class="display-4 mb-3" > A editar: {{ $aeronave->matricula }} </p>
+    </div>
 
     <form method="POST" action="/aeronaves/{{$aeronave->matricula}}">
         @csrf
         @method('PUT')
-        <div class="container">
-            <label for="matricula" class="mr-2">Matricula</label>
-            <input type="text" name="matricula" id="matricula" value="{{ $aeronave->matricula}}" >
-        </div>
+
+        {{-- @include('aeronaves.partials.create-edit') --}}
         <div class="container">
             <label for="marca" class="mr-2">Marca</label>
             <input type="text" name="marca" id="marca" value="{{ $aeronave->marca}}" >

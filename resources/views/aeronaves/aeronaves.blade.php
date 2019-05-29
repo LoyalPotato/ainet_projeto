@@ -60,12 +60,12 @@
     {{ $naves->links() }}
     @endif
     {{-- @include('aeronaves.aeronaves_valores') --}}
-    {{-- NOTE: Se a rota for a de uma só nave 
+    {{-- NOTE: Se a rota for a de uma só nave --}}
     @if (Route::currentRouteName() == 'aeronaves.show')
     @can('update', Aeronave::class)
     <button class="btn btn-outline-primary mb-2 float-left" type="submit">Editar</button>
     @endcan
-    @endif --}}
+    @endif 
 
 </div>
 {{-- Esta linha serve para paginaçao. Sao enviadas quatro naves --}}
