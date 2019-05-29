@@ -16,8 +16,8 @@
         @csrf
         @method('PUT')
 
-        {{-- @include('aeronaves.partials.create-edit') --}}
-        <div class="container">
+        @include('aeronaves.partials.create-edit')
+        {{-- <div class="container">
             <label for="marca" class="mr-2">Marca</label>
             <input type="text" name="marca" id="marca" value="{{ $aeronave->marca}}" >
         </div>
@@ -40,7 +40,7 @@
         <div class="container">
             <label for="preco_hora" class="mr-2">Preco-Hora</label>
             <input type="text" name="preco_hora" id="preco_hora" value="{{ $aeronave->preco_hora }}" >
-        </div>
+        </div> --}}
 
         @foreach ($aeronave->valores as $valor) 
         <div class="input-group my-3">

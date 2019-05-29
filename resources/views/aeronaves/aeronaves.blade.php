@@ -43,7 +43,8 @@
                 <td>{{$nave->preco_hora}}</td>
                 <td>
                     @can('update', $nave)
-                    <a class="btn btn-outline-primary mb-2 float-left" href="{{route('aeronaves.edit', $nave->matricula)}}"> Editar </a>
+                    <a class="btn btn-outline-primary mb-2 float-left"
+                        href="{{route('aeronaves.edit', $nave->matricula)}}"> Editar </a>
                     @endcan
                     <form action="{{route('aeronaves.destroy', $nave->matricula)}}" method="POST" role="form"
                         class="inline">
@@ -65,7 +66,7 @@
     @can('update', App\Aeronave::class)
     <button class="btn btn-outline-primary mb-2 float-left" type="submit">Editar</button>
     @endcan
-    @endif 
+    @endif
 
 </div>
 {{-- Esta linha serve para paginaçao. Sao enviadas quatro naves --}}

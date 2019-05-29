@@ -10,8 +10,8 @@
             <label for="matricula" class="mr-2">Matricula</label>
             <input type="text" name="matricula" id="matricula" value="{{ old('matricula') }}" required>
         </div>
-        {{-- @include('aeronaves.partials.create-edit') --}}
-        <div class="container">
+        @include('aeronaves.partials.create-edit')
+        {{-- <div class="container">
             <label for="marca" class="mr-2">Marca</label>
             <input type="text" name="marca" id="marca" value="{{ old('marca') }}" required>
         </div>
@@ -30,7 +30,7 @@
         <div class="container">
             <label for="preco_hora" class="mr-2">Preco-Hora</label>
             <input type="number" name="preco_hora" id="preco_hora" value="{{ old('preco_hora') }}" required>
-        </div>
+        </div> --}}
 
         @for ($i = 1; $i < 11; $i++) <div class="input-group my-3">
             <div class="input-group-prepend">
