@@ -4,7 +4,7 @@
 
 @section('content')
 
-@can('view', $aeronave)
+@can('update', $aeronave)
 
 <div class="container">
     @include('layouts.errors')

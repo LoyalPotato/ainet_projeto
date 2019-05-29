@@ -25,12 +25,13 @@ class UserController extends Controller
 
     public function show(User $user)
     {
+        $users = DB::table('users')->get();
         return view('socios.index', compact('user'));
     }
 
     public function showFichas(User $user)
     {
-        $users = User::paginate(10);
+        $users = User::paginate(20);
         return view('socios.fichas', compact('users'));
     }
 
@@ -46,6 +47,7 @@ class UserController extends Controller
         return view('socios.ativar', compact('users'));
     }
 
+
     public function create()
     {
         $this->authorize('create', User::class);
@@ -57,10 +59,9 @@ class UserController extends Controller
 
     public function store(StoreUserRequest $request)
     {
-        //foto
-        $image = $request->file('noimage');
+        $image = $request->file('foto_url');
         $name = time().'.'.$image->getClientOriginalExtension();
-        $path = $request->file('noimage')->storeAs('public/fotos', $name);
+        $path = $request->file('foto_url')->storeAs('public/fotos', $name);
     
         $user = new User();
         $user->fill($request->all());
@@ -75,7 +76,7 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        $this->authorize('create', User::class);
+        $this->authorize('edit', $user);
 
         $pagetitle = "Editar um sócio";
         return view('socios.edit', compact('user', 'pagetitle'));
@@ -83,11 +84,13 @@ class UserController extends Controller
 
     public function update(UpdateUserRequest $request, User $user)
     {
-        if(! is_null($request['noimage'])) {
-            $image = $request->file('noimage');
+        $this->authorize('update', $user);
+
+        if(! is_null($request['foto_url'])) {
+            $image = $request->file('foto_url');
             $name = time().'.'.$image->getClientOriginalExtension();
 
-            $path = $request->file('noimage')->storeAs('public/fotos', $name);
+            $path = $request->file('')->storeAs('public/fotos', $name);
         }
 
         $user->fill($request->validated());
@@ -102,11 +105,11 @@ class UserController extends Controller
     public function destroy(User $user)
     {   
         $this->authorize('delete', $user);
-
         $user->delete();
+
         return redirect()
-            ->route('socios.destroy')
-            ->with('success', 'User apagado com sucesso!');
+            ->route('socios.index')
+            ->with('success', 'Utilizador apagado com sucesso!');
     }
 
 

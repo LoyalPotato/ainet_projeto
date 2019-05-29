@@ -19,34 +19,30 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('ativo');
 
-
-
-//----------            Dinis               ---------------
-
-Route::get('movimentos', 'MovimentosController@index')->name('movimentos.index');
-Route::get('movimentos/{movimento}/edit','MovimentosController@edit')->name('movimentos.edit');
-Route::get('movimentos/create','MovimentosController@create')->name('movimentos.create');
-Route::post('movimentos', 'MovimentosController@store')->name('movimentos.store');
-Route::put('movimentos/{movimento}', 'MovimentosController@update')->name('movimentos.update');
-Route::get('movimentos/estatisticas','MovimentosController@estatistica')->name('movimentos.estatistica');
-
-
-
-
-
-
 //----------            David               ---------------
 
 Route::get('password', 'PasswordController@index')->name('password');
 Route::patch('password', 'PasswordController@update');
 //NOTE: Rotas aeronaves
-Route::get('/aeronaves/{aeronave}/precos_tempos', 'AeronaveController@showValores')->name('aeronaves_precos');
 Route::resource('aeronaves', 'AeronaveController')->parameters(['aeronaves' => 'aeronave']);
 
 
 
-//NOTE: Rotas socios
+
+
+//-----------          Marce                 --------------------
 Route::get('socios/fichas', 'UserController@showFichas');
 Route::get('socios/quotas', 'UserController@showQuotas');
 Route::get('socios/ativar', 'UserController@showAtivarDesativar');
-Route::resource('socios', 'UserController')->parameters(['users' => 'user']);
+Route::view('socios/quotasNaoPagas', 'UserController@show')->name('socios.quotasNaoPagas');
+//resolver esta rota
+Route::patch('socios/{user}/quotas', 'UserController@store')->name('socios.quotas');
+
+Route::resource('socios', 'UserController')->parameters(['socios' => 'user']);
+
+
+
+//----------            Dinis               ---------------
+Route::resource('movimentos', 'MovimentoController')->parameters(['movimentos' => 'movimento']);
+Route::get('movimentos/create', 'MovimentoController@create');
+Route::get('movimentos/estatisticas', 'MovimentoController@estatisticas');

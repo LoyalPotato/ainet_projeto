@@ -22,6 +22,7 @@
     <thead>
         <tr>
             <th>Nº Sócio</th>
+            <th>ID</th>
             <th>Nome Informal</th>
             <th>Nome Completo</th>
             <th>Sexo</th>
@@ -40,6 +41,7 @@
     @foreach ($users as $user)
         <tr>
             <td>{{$user->num_socio}}</td>
+            <td>{{$user->id}}</td>
             <td>{{$user->nome_informal}}</td>
             <td>{{$user->name}}</td>
             <td>{{$user->sexo}}</td>
@@ -52,13 +54,13 @@
             <td>{{$user->quota_paga}}</td>
             <td>{{$user->ativo}}</td>
             <td>{{$user->direcao}}</td>
-            @can('create', \App\User::class)
+            @can('update', $user)
             <td>
                 <a class="btn btn-primary mb-2" href="{{route('socios.edit', $user)}}">Editar</a>
                 
                 <form action="{{route('socios.destroy', $user)}}" method="POST" role="form" class="inline">
-                    {{ method_field('DELETE') }}
-                    {{ csrf_field() }}
+                    @method('DELETE')
+                    @csrf
                     <button type="submit" class="btn btn-xs btn-danger">Delete</button>
                 </form>
             </td>

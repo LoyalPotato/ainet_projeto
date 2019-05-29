@@ -3,13 +3,22 @@
 @section('title', 'Quotas dos sócios')
 @section('content')
 
+<?php
+    function reiniciarQuotas() {
+        foreach($users as $user) {
+            $user->quota_paga == "0";
+        }
+    }
+?>
+
 <div class="container ml-2 mb-4">
     <h3> Quotas dos sócios </h3>
+    <button onclick="reiniciarQuotas()" class="btn btn-outline-primary mb-2">Reinicar Quotas</button>
 </div>
 
-@if(count($users))
 
 <div class="container ml-2">
+
 <table class="table table-sm table-striped">
     <thead>
         <tr>
@@ -19,7 +28,7 @@
             <th>Sexo</th>
             <th>Tipo Sócio</th>
             <th>Quotas em dia</th>
-
+            <th>Alterar quota:</th>
         </tr>
     </thead>
     <tbody>
@@ -31,13 +40,19 @@
             <td>{{$user->sexo}}</td>
             <td>{{$user->tipo_socio}}</td>
             <td>{{$user->quota_paga}}</td>
-            <td> ALTERAR QUOTA
-            <form action="" method="post">
-                <input type="radio" name="quota_paga" value="quota_paga">Sim
-                <input type="radio" name="quota_paga" value="quota_paga">Nao
-                <input type="submit" name="submit" value="Submeter" />
+            <td>
+            <form method="POST" action="/socios/{{$user->user}}">
+                @method('PATCH')
+                @csrf
+                <div class="form-group mb-2">
+                    <select name="quota_paga" id="quota_paga" class="form-control" value="{{ $user->quota_paga}}">
+                        <option disabled selected> -- Selecione uma opção -- </option>
+                        <option value="0" {{ old('quota_paga', strval($user->quota_paga)) == 0 ? 'selected' : '' }} >Nao Paga</option>
+                        <option value="1" {{ old('quota_paga', strval($user->quota_paga)) == 1 ? 'selected' : '' }} >Paga</option>
+                    </select>
+                </div>
+                <input type="submit" name="submit" class="btn btn-primary" value="Submeter" />
             </form>
-            
             </td>
         </tr>
     @endforeach
@@ -46,9 +61,5 @@
     {{ $users->links() }}
 @endif
 </div>
-
-@else
-    <h2>Não foram encontrados sócios</h2>
-@endif
 
 @endsection

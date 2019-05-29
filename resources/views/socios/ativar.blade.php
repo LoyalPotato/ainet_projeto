@@ -7,10 +7,25 @@
     <h3> Ativar/Desativar Sócios </h3>
 </div>
 
+
+
+<script>
+    function desativarALL(that) {
+        document.getElementById("desativarTodosSocios").style.display = "block";
+    }   
+</script>
+
+<div class="desativarTodosSocios">
+    @foreach($users as $user)
+        
+    @endforeach
+</div>
+
+
 @can('create', \App\User::class)
 <div class="container">
     @if (count($users)>1)
-        <button onclick="desativarALL()" class="btn btn-outline-primary mb-2 mr-2 float-left">Desativar todos os sócios sem quotas em dia</button>
+        <button onclick="desativarALL(this);" class="btn btn-outline-primary mb-2 mr-2 float-left">Desativar sócios</button>
     @endif
 </div>
 @endcan
@@ -26,6 +41,7 @@
             <th>Nome Informal</th>
             <th>Direção</th>
             <th>Sócio Ativo</th>
+            <th>Alterar estado sócio</th>
         </tr>
     </thead>
     <tbody>
@@ -37,8 +53,18 @@
             <td>{{$user->ativo}}</td>
             @can('create', \App\User::class)
             <td>
-                <button onclick="ativar()" class="btn btn-primary mb-2 mr-2 float-left">Ativar</button>
-                <button onclick="desativar()" class="btn btn-danger mb-2 mr-2 float-left">Desativar</button>
+            <form method="POST" action="/socios/{{$user->user}}">
+                @method('PATCH')
+                @csrf
+                <div class="form-group mb-2">
+                    <select name="ativo" id="ativo" class="form-control" value="{{ $user->ativo}}">
+                        <option disabled selected> -- Selecione uma opção -- </option>
+                        <option value="1" {{ old('ativo', strval($user->ativo)) == 1 ? 'selected' : '' }} >Ativo</option>
+                        <option value="0" {{ old('ativo', strval($user->ativo)) == 0 ? 'selected' : '' }} >Desativado</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary" type="submit" name="submit">Submeter</button>
+            </form>
             </td>
             @endcan
         </tr>

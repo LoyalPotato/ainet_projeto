@@ -62,7 +62,7 @@
     {{-- @include('aeronaves.aeronaves_valores') --}}
     {{-- NOTE: Se a rota for a de uma só nave --}}
     @if (Route::currentRouteName() == 'aeronaves.show')
-    @can('update', Aeronave::class)
+    @can('update', App\Aeronave::class)
     <button class="btn btn-outline-primary mb-2 float-left" type="submit">Editar</button>
     @endcan
     @endif 

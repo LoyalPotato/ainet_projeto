@@ -1,15 +1,15 @@
-<div class="container mb-2">
+<div class="col-md-12 mb-2">
         <label for="aluno">Aluno</label>
-            <select name="aluno" id="aluno" class="form-control" value="{{ old('aluno') }}">
+            <select name="aluno" id="aluno" class="form-control" value="{{ $user->aluno}}">
                 <option disabled selected> -- Selecione uma opção -- </option>
                 <option value="0" {{ old('aluno', strval($user->aluno)) == 0 ? 'selected' : '' }} >Nao</option>
                 <option value="1" {{ old('aluno', strval($user->aluno)) == 1 ? 'selected' : '' }} >Sim</option>
             </select>
 </div>
 
-<div class="container mb-4">
+<div class="col-md-12 mb-4">
         <label for="instrutor">Instrutor</label>
-            <select name="instrutor" id="instrutor" class="form-control" value="{{ old('instrutor') }}">
+            <select name="instrutor" id="instrutor" class="form-control" value="{{ $user->instrutor}}">
                 <option disabled selected> -- Selecione uma opção -- </option>
                 <option value="0" {{ old('instrutor', strval($user->instrutor)) == 0 ? 'selected' : '' }} >Nao</option>
                 <option value="1" {{ old('instrutor', strval($user->instrutor)) == 1 ? 'selected' : '' }} >Sim</option>
@@ -17,9 +17,9 @@
 </div>
 
 
-<div class="container mb-2">
+<div class="container md-8 mb-2">
     <label for="numero_licenca" class="mr-2">Numero Licença</label>
-    <input type="number" name="numero_licenca" id="numero_licenca" value="{{ old('numero_licenca') }}">
+    <input type="number" name="numero_licenca" id="numero_licenca" value="{{ $user->num_licenca}}">
 </div>
 
 <div class="container mb-4">
@@ -33,21 +33,25 @@
                 <option value="4" {{ old('tipo_licenca', strval($user->tipo_licenca)) == "PPL(A)" ? 'selected' : '' }} >PPL(A)</option>
                 <option value="5" {{ old('tipo_licenca', strval($user->tipo_licenca)) == "PU" ? 'selected' : '' }} >PU</option>
             </select>
-</div>
+    </div>
+
 
 <div class="container mb-4">
 <label for="file_licenca" class="mr-2">Licença piloto</label>
-    <input type="file" name="file_licenca" id="file_licenca" value="{{ old('file_licenca') }}">
-</div> 
+    <embed src="storage/app/docs_piloto/licenca_10000.pdf" type="application/pdf"  height="300px" width="100%" class="responsive">
+    <br/><br/>
+    <input type="file" name="file_licenca" id="file_licenca" class="form-control" value="{{ $user->file_licenca}}">
+</div>     
+
 
 <div class="container mb-2">
     <label for="validade_licenca" class="mr-2">Validade Licença</label>
-    <input type="date" name="validade_licenca" id="validade_licenca" value="{{ old('validade_licenca') }}">
+    <input type="date" name="validade_licenca" id="validade_licenca" value="{{ $user->validade_licenca}}">
 </div>
 
-<div class="container mb-2">
+<div class="container mb-4">
         <label for="licenca_confirmada">Licença Confirmada</label>
-            <select name="licenca_confirmada" id="licenca_confirmada" class="form-control" value="{{ old('licenca_confirmada') }}">
+            <select name="licenca_confirmada" id="licenca_confirmada" class="form-control" value="{{ $user->licenca_confirmada}}">
                 <option disabled selected> -- Selecione uma opção -- </option>
                 <option value="0" {{ old('licenca_confirmada', strval($user->licenca_confirmada)) == 0 ? 'selected' : '' }} >Nao</option>
                 <option value="1" {{ old('licenca_confirmada', strval($user->licenca_confirmada)) == 1 ? 'selected' : '' }} >Sim</option>
@@ -55,9 +59,10 @@
 </div>
 
 
+
 <div class="container md-8 mb-2">
     <label for="num_certificado" class="mr-2">Numero Certificado</label>
-    <input type="text" name="num_certificado" id="num_certificado" value="{{ old('num_certificado') }}">
+    <input type="text" name="num_certificado" id="num_certificado" value="{{ $user->num_certificado}}">
 </div>
 
 <div class="container mb-4">
@@ -72,15 +77,17 @@
 
 <div class="container mb-4">
 <label for="file_certificado" class="mr-2">Certificado piloto</label>
-    <input type="file" name="file_certificado" id="file_certificado" value="{{ old('file_certificado') }}">
+    <embed src="storage/app/docs_piloto/certificado_10000.pdf" type="application/pdf" height="300px" width="100%" class="responsive">
+    <br/><br/>
+    <input type="file" name="file_certificado" id="file_certificado" class="form-control" value="{{ $user->file_certificado}}">
 </div> 
 
 <div class="container mb-2">
     <label for="validade_certificado" class="mr-2">Validade Certificado</label>
-    <input type="date" name="validade_certificado" id="validade_certificado" value="{{ old('validade_certificado') }}">
+    <input type="date" name="validade_certificado" id="validade_certificado" value="{{ $user->validade_certificado}}">
 </div>
 
-<div class="container mb-2">
+<div class="col-md-12 mb-2">
         <label for="certificado_confirmado">Certificado Confirmado</label>
             <select name="certificado_confirmado" id="certificado_confirmado" class="form-control" value="{{ $user->certificado_confirmado}}">
                 <option disabled selected> -- Selecione uma opção -- </option>
@@ -88,8 +95,5 @@
                 <option value="1" {{ old('certificado_confirmado', strval($user->certificado_confirmado)) == 1 ? 'selected' : '' }} >Sim</option>
             </select>
 </div>
-
-
-
 
 

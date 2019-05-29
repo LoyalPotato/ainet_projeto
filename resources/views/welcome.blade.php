@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Flight Club</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -12,6 +12,8 @@
         <!-- Styles -->
         <style>
             html, body {
+                background-image: url('https://media.giphy.com/media/3o9bT58ddcH7LvnKs0/giphy.gif');
+                background-size: cover;
                 background-color: #fff;
                 color: #636b6f;
                 font-family: 'Nunito', sans-serif;
@@ -46,10 +48,11 @@
 
             .title {
                 font-size: 84px;
+                color: #ffffff;
             }
 
             .links > a {
-                color: #636b6f;
+                color: #ffffff;
                 padding: 0 25px;
                 font-size: 13px;
                 font-weight: 600;
@@ -83,7 +86,6 @@
                 <div class="title m-b-md">
                     Flight Club
                 </div>
-                <p>Fight Club ;)</p>
             </div>
         </div>
     </body>

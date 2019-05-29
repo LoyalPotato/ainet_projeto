@@ -35,4 +35,20 @@ class UserPolicy
     {
         return $user->direcao;
     }
+
+    public function update(User $user)
+    {
+        return $user->direcao;
+    }
+
+    public function edit(User $user)
+    {
+        return $user->direcao;
+    }
+
+    public function piloto(User $user)
+    {
+        return $user->tipo_socio == 'P';
+    }
+
 }
