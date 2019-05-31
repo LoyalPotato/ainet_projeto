@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreAeronave;
 use App\AeronaveValor;
 use App\Http\Requests\UpdateAeronaveRequest;
+use App\User;
+
 
 class AeronaveController extends Controller
 {
@@ -22,9 +24,8 @@ class AeronaveController extends Controller
     public function index()
     {
         $naves = Aeronave::paginate(5);
-        $pagetitle = 'Aeronaves';
         $naves_valores = DB::table('aeronaves_valores')->get();
-        return view('aeronaves.aeronaves', compact('naves', 'pagetitle', 'naves_valores'));
+        return view('aeronaves.aeronaves', compact('naves', 'naves_valores'));
     }
     /**
      * Show the form for creating a new resource.
@@ -33,9 +34,8 @@ class AeronaveController extends Controller
      */
     public function create()
     {
-        $pagetitle = 'Criar nova aeronave';
         // $naves_valores = DB::table('aeronaves_valores')->get(); , 'naves_valores'
-        return view('aeronaves.aeronaves_create', compact('pagetitle'));
+        return view('aeronaves.aeronaves_create');
     }
     /**
      * Store a newly created resource in storage.
@@ -62,6 +62,22 @@ class AeronaveController extends Controller
         return redirect('/aeronaves');
     }
     /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storePiloto(StoreAeronave $request)
+    {
+        /* 
+        NOTE:
+        Check if piloto exists
+
+        */
+
+        return redirect('/aeronaves');
+    }
+    /**
      * Display the specified resource.
      *
      * @param  \App\Aeronave  $aeronave
@@ -69,10 +85,9 @@ class AeronaveController extends Controller
      */
     public function show(Aeronave $aeronave)
     {
-        $pagetitle = "Aeronave $aeronave->matricula";
         $naves = array($aeronave);
         $naves_valores = $aeronave->valores;
-        return view('aeronaves.aeronaves', compact('pagetitle', 'naves', 'naves_valores'));
+        return view('aeronaves.aeronaves', compact('naves', 'naves_valores'));
     }
 
     /**
@@ -83,7 +98,6 @@ class AeronaveController extends Controller
      */
     public function showValores(Aeronave $aeronave)
     {
-        $pagetitle = "Aeronave $aeronave->matricula";
         $naves_valores = DB::table('aeronaves_valores')
             ->select('unidade_conta_horas')
             ->addSelect('minutos')
@@ -94,6 +108,24 @@ class AeronaveController extends Controller
         return response()->json($naves_valores);
     }
     /**
+     * Display the specified resource.
+     *
+     * @param  \App\Aeronave  $aeronave
+     * @return \Illuminate\Http\Response
+     */
+    public function showPilotos(Aeronave $aeronave)
+    {
+        $this->authorize('view', $aeronave);
+        $users_auto = $aeronave->pilotos()->paginate(5);
+        //NOTE: Get all ids not in  ^ 
+        dd($aeronave->pilotos);
+        foreach ($users_auto as $piloto) {
+            $ids_not_auto[] =  $piloto->id;
+        }
+        $users_not_auto = User::where('id', '!=', $ids_not_auto)->paginate(5);
+        return view('aeronaves.aeronaves_pilotos', compact('aeronave', 'users_auto', 'users_not_auto'));
+    }
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Aeronave  $aeronave
@@ -101,8 +133,7 @@ class AeronaveController extends Controller
      */
     public function edit(Aeronave $aeronave)
     {
-        $pagetitle = "Aeronave $aeronave->matricula";
-        return view('aeronaves.aeronaves_edit', compact('pagetitle', 'aeronave'));
+        return view('aeronaves.aeronaves_edit', compact('aeronave'));
     }
     /**
      * Update the specified resource in storage.
@@ -140,6 +171,21 @@ class AeronaveController extends Controller
         } else {
             $aeronave->delete();
         }
+        return redirect()->back();
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Aeronave  $aeronave
+     * @param \App\User       $pilotoAuto
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyPiloto(User $pilotoAuto, Aeronave $aeronave)
+    {
+        $this->authorize('delete', $aeronave);
+        // BUG: Removeu a aeronave da tabela pivot o.0
+        // $aeronave->pilotos()->attach($pilotoAuto->id);
         return redirect()->back();
     }
 }

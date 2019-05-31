@@ -42,6 +42,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime', // I dont get it :p
     ];
 
+    protected $table = 'users';
+
+
+    public function aeronaves()
+    {
+        return $this->belongsToMany('App\Aeronave','aeronaves_pilotos', 'piloto_id', 'matricula');
+    }
     
 
 }

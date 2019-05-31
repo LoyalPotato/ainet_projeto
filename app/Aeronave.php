@@ -16,6 +16,9 @@ class Aeronave extends Model
     // Overrides primary key
     protected $primaryKey = 'matricula';
 
+    protected $table = 'aeronaves';
+
+
     public $incrementing = false;
     // Disables auto timestamps
 
@@ -27,6 +30,11 @@ class Aeronave extends Model
     public function movimentos()
     {
         return $this->hasMany('App\Movimento', 'aeronave', 'matricula');
+    }
+
+    public function pilotos()
+    {
+        return $this->belongsToMany('App\User','aeronaves_pilotos', 'matricula', 'piloto_id');
     }
 
     public function updateNave($request, Aeronave $aeronave)

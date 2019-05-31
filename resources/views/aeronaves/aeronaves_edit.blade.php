@@ -4,7 +4,7 @@
 
 @section('content')
 
-@can('update', $aeronave)
+@can('update', Auth::user(),  $aeronave)
 
 <div class="container">
     @include('layouts.errors')

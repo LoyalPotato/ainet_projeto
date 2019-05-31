@@ -24,6 +24,11 @@ Route::get('/home', 'HomeController@index')->name('home')->middleware('ativo');
 Route::get('password', 'PasswordController@index')->name('password');
 Route::patch('password', 'PasswordController@update');
 //NOTE: Rotas aeronaves
+
+Route::get('/aeronaves/{aeronave}/pilotos', 'AeronaveController@showPilotos')->name('show_apiloto');
+Route::post('/aeronaves/{aeronave}/pilotos', 'AeronaveController@storePiloto')->name('store_apiloto');
+Route::delete('/aeronaves/{aeronave}/pilotos', 'AeronaveController@destroyPiloto')->name('destroy_apiloto');
+Route::get('/aeronaves/{aeronave}/precos_tempos', 'AeronaveController@showValores')->name('aeronaves_precos');
 Route::resource('aeronaves', 'AeronaveController')->parameters(['aeronaves' => 'aeronave']);
 
 
