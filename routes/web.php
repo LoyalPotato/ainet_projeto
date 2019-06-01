@@ -15,8 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
+// Route::get('/email/verify/{id}', 'UserController@viewActive')
 Route::get('/home', 'HomeController@index')->name('home')->middleware('ativo');
 
 //----------            David               ---------------

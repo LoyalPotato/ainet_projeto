@@ -29,8 +29,8 @@ class UpdateAeronaveRequest extends FormRequest
             'num_lugares' => ['required','min:1', 'integer'],
             'conta_horas' => ['required', 'min:1', 'integer'],
             'preco_hora' => ['required', 'min:1', 'numeric'],
-            'tempos' => ['required', 'min:5', 'max:60'], 
-            'precos' => ['required', 'min:1'],
+            'tempos.*' => ['required', 'min:1', 'max:60', 'integer'], 
+            'precos.*' => ['required', 'min:1', 'numeric'],
         ];
     }
 }

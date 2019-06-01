@@ -9,6 +9,7 @@
 
 
 
+
 <script>
     function yesnoCheck(that) {
         if (that.value == "0") {
@@ -20,9 +21,14 @@
     }   
 </script>
 
+@if (session('success'))
+<div class="alert alert-success">
+    <p>{{ session('sucesso') }}</p>
+</div>
+@endif
 
 
-
+@include('layouts.errors')
 
 @can('view', $user)
 

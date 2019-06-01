@@ -7,9 +7,8 @@ use App\Http\Requests\UpdateUserRequest;
 use App\User;
 use Hash;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\UserCreated;
 
 class UserController extends Controller
 {
@@ -49,29 +48,18 @@ class UserController extends Controller
         return view('socios.ativar', compact('users'));
     }
 
-    public function viewCertLice(User $piloto)
+    public function showLicenca(User $piloto)
     {
         $this->authorize('viewCertLice', $piloto);
-        return view('socios.pilotos.licenca', compact('piloto'));
+        $path = storage_path('app/public/docs_piloto/licenca_' . $piloto->id . '.pdf');
+        return response()->file($path);
     }
 
     public function showCertificado(User $piloto)
     {
-        //NOTE: Como ta na public folder qualquer um pode aceder?
-
-
         $this->authorize('viewCertLice', $piloto);
-        // certificado_10001
-        // $certificado = Storage::get('/storage/app/docs_piloto/certificado_'.$piloto->id.'.pdf');
         $path = storage_path('app/public/docs_piloto/certificado_' . $piloto->id . '.pdf');
-
-
         return response()->file($path); //WORKING, but shows full page
-
-
-        // return view('socios.pilotos.certificado', compact('piloto'));
-        // ->file('/storage/app/docs_piloto/certificado_'.$piloto->id.'.pdf')
-        // ->header('Content-Type', 'pdf');
     }
 
     public function create()
@@ -94,6 +82,13 @@ class UserController extends Controller
         $user->image = $name;
         $user->password = Hash::make($request->password);
         $user->save();
+
+        $mail = Mail::to($request->$user->email)
+        ->send(
+            new UserCreated($user)
+        );
+
+        dd($mail);
 
         return redirect()
             ->route('socios.index')

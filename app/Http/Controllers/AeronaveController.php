@@ -34,7 +34,7 @@ class AeronaveController extends Controller
      */
     public function create()
     {
-        $aeronave = Aeronave::new();
+        $aeronave = new Aeronave;
         return view('aeronaves.aeronaves_create', compact('aeronave'));
     }
     /**

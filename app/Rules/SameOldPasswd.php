@@ -21,7 +21,7 @@ class SameOldPasswd implements Rule
     /**
      * Determine if the validation rule passes.
      *
-     * @param  string  $attribute
+     * @param  string  $attribute name (old_password)
      * @param  mixed  $value
      * @return bool
      */

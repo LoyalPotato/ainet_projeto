@@ -9,50 +9,60 @@
 
 @if(count($users))
 <div class="container">
-<table class="table table-sm table-striped">
-    <thead>
-        <tr>
-            <th>Foto</th>
-            <th>Nº Sócio</th>
-            <th>Nome Completo</th>
-            <th>Nome Informal</th>
-            <th>Email</th>
-            <th>Telefone</th>
-            <th>Direção</th>
-            <th>Ativo</th>
-            <th>Tipo Sócio</th>
-            <th>Numero licença</th>
-            <th>Tipo licença</th>
-        </tr>
-    </thead>
-    <tbody>
-    @foreach ($users as $user)
-    @if($user->ativo)
-        <tr>
-            <td>
-                <img src="{{ $user->foto_url == null ? asset('storage/fotos/noimage.jpg') : asset('storage/fotos/' . $user->foto_url)}}" width="200px" height="200px" class="img-thumbnail"/>
-            </td>
-            <td>{{$user->num_socio}}</td>
-            <td>{{$user->name}}</td>
-            <td>{{$user->nome_informal}}</td>
-            <td>{{$user->email}}</td>
-            <td>{{$user->telefone}}</td>
-            <td>{{$user->direcao}}</td>
-            <td>{{$user->ativo}}</td>
-            <td>{{$user->tipo_socio}}</td>
-            <td>{{$user->num_licenca}}</td>
-            <td>{{$user->tipo_licenca}}</td>
-        </tr>
-    @endif
-    @endforeach
-</table>
-@if (count($users) > 1)
+    <table class="table table-sm table-striped">
+        <thead>
+            <tr>
+                <th>Foto</th>
+                <th>Nº Sócio</th>
+                <th>Nome Completo</th>
+                <th>Nome Informal</th>
+                <th>Email</th>
+                <th>Telefone</th>
+                <th>Direção</th>
+                <th>Ativo</th>
+                <th>Tipo Sócio</th>
+                <th>Numero licença</th>
+                <th>Tipo licença</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($users as $user)
+            @if($user->ativo)
+            <tr>
+                <td>
+                    <img src="{{ $user->foto_url == null ? asset('storage/fotos/noimage.jpg') : asset('storage/fotos/' . $user->foto_url)}}"
+                        width="200px" height="200px" class="img-thumbnail" />
+                </td>
+                <td>{{$user->num_socio}}</td>
+                <td>{{$user->name}}</td>
+                <td>{{$user->nome_informal}}</td>
+                <td>{{$user->email}}</td>
+                <td>{{$user->telefone}}</td>
+                <td>{{$user->direcao}}</td>
+                <td>{{$user->ativo}}</td>
+                <td>{{$user->tipo_socio}}</td>
+                <td>{{$user->num_licenca}}</td>
+                <td>{{$user->tipo_licenca}}</td>
+                @if ($user->num_licenca != null)
+                @can('viewCertLice', $user)
+                    <td>
+                        <a class="btn btn-primary mb-2" href="{{route('piloto_cert', $user)}}">Ver Certificacao</a>
+                        <a class="btn btn-primary mb-2" href="{{route('piloto_lic', $user)}}">Ver Licenca</a>
+                    </td>
+                    @endcan
+                @endif
+
+            </tr>
+            @endif
+            @endforeach
+    </table>
+    @if (count($users) > 1)
     {{ $users->links() }}
-@endif
+    @endif
 </div>
 
 @else
-    <h2>Não foram encontrados sócios</h2>
+<h2>Não foram encontrados sócios</h2>
 @endif
 
 @endsection

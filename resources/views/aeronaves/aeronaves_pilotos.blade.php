@@ -2,9 +2,17 @@
 
 @section('content')
 
+@if (session('sucesso'))
+<div class="alert alert-success">
+    <p>{{ session('sucesso') }}</p>
+</div>
+@endif
+
 <div class="container">
     <p class="display-4 mb-3"> Pilotos Autorizados </p>
 </div>
+
+
 
 @if(count($users_auto))
 
@@ -46,7 +54,8 @@
                 <td>{{$user_auto->ativo}}</td>
                 <td>{{$user_auto->direcao}}</td>
                 <td>
-                    <form method="POST" action="{{route('destroy_apiloto', $aeronave->matricula)}}" role="form" class="inline">
+                    <form method="POST" action="{{ route('destroy_apiloto',[$aeronave->matricula, $user_auto->id])}}"
+                        role="form" class="inline">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger ml-2">Remover autorização</button>
@@ -109,11 +118,12 @@
                 <td>{{$user_not_auto->ativo}}</td>
                 <td>{{$user_not_auto->direcao}}</td>
                 <td>
-                        <form method="POST" action="{{route('store_apiloto', $aeronave->matricula)}}" role="form" class="inline">
-                            @csrf
-                            <button type="submit" class="btn btn-primary mb-2 float-left">Adicionar autorização</button>
-                        </form>
-                    </td>
+                    <form method="POST" action="{{route('store_apiloto', [$aeronave->matricula, $user_not_auto->id])}}"
+                        role="form" class="inline">
+                        @csrf
+                        <button type="submit" class="btn btn-primary mb-2 float-left">Adicionar autorização</button>
+                    </form>
+                </td>
             </tr>
             @endforeach
     </table>

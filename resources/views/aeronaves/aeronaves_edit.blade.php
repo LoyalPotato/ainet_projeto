@@ -17,31 +17,7 @@
         @method('PUT')
 
         @include('aeronaves.partials.create-edit')
-        {{-- <div class="container">
-            <label for="marca" class="mr-2">Marca</label>
-            <input type="text" name="marca" id="marca" value="{{ $aeronave->marca}}" >
-        </div>
-
-        <div class="container">
-            <label for="modelo" class="mr-2">Modelo</label>
-            <input type="text" name="modelo" id="modelo" value="{{ $aeronave->modelo}}" >
-        </div>
-
-        <div class="container">
-            <label for="num_lugares" class="mr-2">Numero de Lugares</label>
-            <input type="text" name="num_lugares" id="num_lugares" value="{{ $aeronave->num_lugares}}" >
-        </div>
-
-        <div class="container">
-            <label for="conta_horas" class="mr-2">Conta-Horas</label>
-            <input type="text" name="conta_horas" id="conta_horas" value="{{ $aeronave->conta_horas }}" >
-        </div>
-
-        <div class="container">
-            <label for="preco_hora" class="mr-2">Preco-Hora</label>
-            <input type="text" name="preco_hora" id="preco_hora" value="{{ $aeronave->preco_hora }}" >
-        </div> --}}
-
+        
         @foreach ($aeronave->valores as $valor) 
         <div class="input-group my-3">
             <div class="input-group-prepend">
