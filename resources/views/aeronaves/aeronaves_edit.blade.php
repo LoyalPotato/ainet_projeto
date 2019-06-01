@@ -4,8 +4,6 @@
 
 @section('content')
 
-@can('update', Auth::user(),  $aeronave)
-
 <div class="container">
     @include('layouts.errors')
     <div class="container">
@@ -39,6 +37,5 @@
     </div>
 </div>
 
-@endcan
 
 @endsection

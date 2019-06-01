@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-
+use App\Rules\CertLiceRule;
 
 class StoreUserRequest extends FormRequest
 {
@@ -39,7 +39,6 @@ class StoreUserRequest extends FormRequest
             'nif' => 'required|min:8|max:10',
             'endereco' => 'required|alpha_dash',
             'telefone' => 'required|min:9|max:9',
-            'foto_url' => 'required|image|max:2048'
-        ];
+        'file_foto' => 'required|image|max:2048',];
     }
 }

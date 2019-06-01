@@ -57,9 +57,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function markEmailAsVerified()
     {
-        // dd($this);
         $this->ativo = "1";
-        // dd($this);
         return $this->forceFill([
             'email_verified_at' => $this->freshTimestamp(),
         ])->save();

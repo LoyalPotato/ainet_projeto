@@ -38,9 +38,13 @@
 
 <div class="container mb-4">
 <label for="file_licenca" class="mr-2">Licença piloto</label>
-    <embed src="storage/app/docs_piloto/licenca_10000.pdf" type="application/pdf"  height="300px" width="100%" class="responsive">
-    <br/><br/>
-    <input type="file" name="file_licenca" id="file_licenca" class="form-control" value="{{ $user->file_licenca}}">
+    @can('viewCertLice', auth()->user())
+    <a class="navbar-brand" href="{{ route('piloto_lic', $user->id) }}">
+            Ver licença atual
+        </a>
+        {{-- TODO: Download link --}}
+    <input type="file" name="file_licenca" id="file_licenca" class="form-control" value="{{ $user->file_licenca }}">
+    @endcan
 </div>     
 
 
@@ -77,9 +81,12 @@
 
 <div class="container mb-4">
 <label for="file_certificado" class="mr-2">Certificado piloto</label>
-    <embed src="storage/app/docs_piloto/certificado_10000.pdf" type="application/pdf" height="300px" width="100%" class="responsive">
-    <br/><br/>
+    @can('viewCertLice', auth()->user())
+    <a class="navbar-brand" href="{{ route('piloto_cert', $user->id) }}">
+        Ver certificado atual
+    </a>
     <input type="file" name="file_certificado" id="file_certificado" class="form-control" value="{{ $user->file_certificado}}">
+    @endcan
 </div> 
 
 <div class="container mb-2">

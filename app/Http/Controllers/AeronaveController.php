@@ -36,6 +36,7 @@ class AeronaveController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', auth()->user());
         $aeronave = new Aeronave;
         return view('aeronaves.aeronaves_create', compact('aeronave'));
     }
@@ -77,12 +78,7 @@ class AeronaveController extends Controller
      */
     public function storePiloto(Aeronave $aeronave, User $piloto)
     {
-        /* 
-        NOTE:
-        Check if piloto exists
-        Check if it's already authorized
-        */
-
+        
         DB::table('aeronaves_pilotos')->insert([
             'matricula' => $aeronave->matricula,
             'piloto_id' => $piloto->id
@@ -148,6 +144,7 @@ class AeronaveController extends Controller
      */
     public function edit(Aeronave $aeronave)
     {
+        $this->authorize('update', auth()->user(),  $aeronave);
         return view('aeronaves.aeronaves_edit', compact('aeronave'));
     }
     /**

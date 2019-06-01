@@ -7,10 +7,11 @@ use App\Http\Requests\UpdateUserRequest;
 use App\User;
 use Hash;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\UserCreated;
 use Illuminate\Support\Facades\Auth;
 use App\Notifications\SocioCriado;
+use Illuminate\Support\Facades\Storage;
+
+
 
 class UserController extends Controller
 {
@@ -54,7 +55,21 @@ class UserController extends Controller
     public function showAtivarDesativar(User $user)
     {
         $users = User::paginate(5);
-        return view('socios.ativar', compact('users'));
+        return view('socios.ativar-desativar', compact('users'));
+    }
+    //TODO: Ativar 
+    public function ativar(User $users)
+    {
+        dd($users);
+
+        return redirect()->back();
+    }
+    // TODO: Desativar
+    public function desativar(User $users)
+    {
+        dd($users);
+
+        return redirect()->back();
     }
 
     public function resetQuotas()
@@ -68,15 +83,26 @@ class UserController extends Controller
     public function showLicenca(User $piloto)
     {
         $this->authorize('viewCertLice', $piloto);
-        $path = storage_path('app/public/docs_piloto/licenca_' . $piloto->id . '.pdf');
-        return response()->file($path);
+        $path = 'docs_piloto/licenca_' . $piloto->id . '.pdf';
+
+        if (!Storage::exists($path)) {
+            return abort(404, 'Ficheiro não existe');
+    }
+
+
+        return Storage::response($path);
     }
 
     public function showCertificado(User $piloto)
     {
         $this->authorize('viewCertLice', $piloto);
-        $path = storage_path('app/public/docs_piloto/certificado_' . $piloto->id . '.pdf');
-        return response()->file($path); //WORKING, but shows full page
+        $path = 'docs_piloto/licenca_' . $piloto->id . '.pdf';
+
+        if (!Storage::exists($path)) {
+            return abort(404, 'Ficheiro não existe');
+        }
+
+        return Storage::response($path);
     }
 
 
@@ -93,35 +119,27 @@ class UserController extends Controller
     {
         $this->authorize('create', User::class);
         $validated = $request->validated();
-        
-        /* 
-
-
-2019-06-19
-
-
-
-*/
-        
-        $image = $request->file('foto_url');
+        $image = $request->file('file_foto');
         $name = time() . '.' . $image->getClientOriginalExtension();
-        $request->file('foto_url')->storeAs('public/fotos', $name);
+        $request->file('file_foto')->storeAs('public/fotos', $name);
         $user = new User();
         $user->fill($validated);
         $user->foto_url = $name;
-        // dd($request);
         $user->password = Hash::make($validated['data_nascimento']);
         $user->save();
         
+        // TODO: Store certificado
+        // if ($user->tipo_socio == "P" && !isset($request->file('file_licenca'))
+        // && isset($request->file('file_licenca'))) {
+        //     $pathLicenca = 'docs_piloto/licenca_' . $user->id . '.pdf';
+        //     $pathCertificado = 'docs_piloto/licenca_' . $user->id . '.pdf';
+        //     Storage::put($pathLicenca, $request->file('file_licenca'));
+        //     Storage::put($pathCertificado, $request->file('file_certificado'));
+        // }
+
 
        
         $user->notify(new SocioCriado);
-
-        // Mail::to($user->email)
-        //     ->send(
-        //         new UserCreated($user)
-        //     );
-
 
         return redirect()
             ->route('socios.index')

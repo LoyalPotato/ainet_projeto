@@ -12,7 +12,7 @@
 
 <script>
     function yesnoCheck(that) {
-        if (that.value == "0") {
+        if (that.value == "P") {
             alert("Campos relacionados aos pilotos adicionados!!");
             document.getElementById("create_piloto_forms").style.display = "block";
         } else {
@@ -38,7 +38,7 @@
     <div class="col-md-12 mb-4">
         <img src="{{ $user->foto_url == null ? asset('storage/fotos/noimage.jpg') : asset('storage/fotos/' . $user->foto_url)}}" class="img-thumbnail"/>
         <br/><br/>
-        <input type="file" name="foto_url" class="form-control" required>
+        <input type="file" name="file_foto" class="form-control" required>
     </div> 
 
     <div class="container mb-2">

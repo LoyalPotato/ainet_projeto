@@ -57,7 +57,7 @@
 
 <div class="container md-8 mb-2">
     <label for="num_certificado" class="mr-2">Numero Certificado</label>
-    <input type="text" name="num_certificado" id="num_certificado" value="{{ old('num_certificado') }}">
+    <input type="number" name="num_certificado" id="num_certificado" value="{{ old('num_certificado') }}">
 </div>
 
 <div class="container mb-4">

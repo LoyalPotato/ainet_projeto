@@ -16,7 +16,7 @@ class UserPolicy
      * @param  \App\User  $model
      * @return mixed
      */
-    public function view(User $user, User $model)
+    public function view(User $user)
     {
         return $user->direcao; 
     }
@@ -25,7 +25,11 @@ class UserPolicy
     {
         return $user->direcao;
     }
-
+    
+    public function ativarDesativar(User $user)
+    {
+        return $user->direcao;
+    }
     public function edit(User $user)
     {
         return $user->direcao;
