@@ -13,7 +13,7 @@
                             <tr>
                                 <th>
                                     <p style="color:blue;">Natureza: <p>
-                                        <select name="natureza" class="form-control" style="width:150px; ">
+                                        <select name="natureza" class="form-control form-control-sm" style="width:150px; ">
                                             <option value=""></option>
                                             <option value="T">Treino</option>
                                             <option value="I">Instrução</option>
@@ -29,16 +29,14 @@
                                 </th>
                                 <th>
                                     <p style="color:blue;">Aeronave: <p>      
-            <select id="aeronave" name="aeronave" class="form-control" >
-                <option value=""></option>
-                @foreach ($aeronaves as $aeronave)                
-                                    <option value="{{$aeronave->matricula}}">{{$aeronave->matricula}}</option>               
-                @endforeach                    
-            </select> 
+                                        <input
+                                            type="text" class="form-control"
+                                            name="aeronave" id="inputAeronave"
+                                            placeholder="Aeronave" value="{{old('aeronave')}}"/> 
                                 </th>
                                 <th>
                                     <p style="color:blue;">Confirmado: <p>                      
-                                        <select name="confirmado" class="form-control">
+                                        <select name="confirmado" class="form-control form-control-sm">
                                             <option value=""></option>
                                             <option value="1">Sim</option>
                                             <option value="0">Não</option>
@@ -60,8 +58,8 @@
 
                                 @can('piloto', App\Movimento::class)
                                   <th>
-                                    <p style="color:blue;">Meus Movimentos: <p>                        
-                                        <select name="meus_movimentos" class="form-control">
+                                    <p style="color:blue;">meus_movimentos: <p>                        
+                                        <select name="meus_movimentos" class="form-control form-control-sm">
                                             <option value=""></option>
                                             <option value="1">Sim</option>
                                             <option value="0">Não</option>
@@ -73,7 +71,7 @@
                                 <th>
                                     <p style="color:blue;">Id piloto: <p>
                                         <input
-                                            type="number" min="10000" step="1" class="form-control"
+                                            type="number" class="form-control"
                                             name="piloto" id="id_piloto"
                                             placeholder="Id piloto" value="{{ old('id_piloto') }}"/>
                                 </th>
@@ -83,7 +81,7 @@
                                 <th>
                                     <p style="color:blue;">Id instrutor: <p>
                                         <input
-                                            type="number" min="10000" step="1" class="form-control"
+                                            type="number" class="form-control"
                                             name="instrutor" id="id_intrutor"
                                             placeholder="Id intrutor" value="{{ old('id_intrutor') }}"/>
                                 </th>
@@ -116,6 +114,8 @@
 
 
 
+
+    
 
     
     <a class="btn btn-outline-primary mb-2 float-right" href="{{ url('/movimentos/create') }}"> Criar Movimento </a>
@@ -210,15 +210,6 @@
                     {{ method_field('DELETE') }}
                     {{ csrf_field() }}
                     <button type="submit" class="btn btn-xs btn-danger">Delete</button>
-                </form>
-               
-                </td>
-
-                <td>                
-                
-                <form action="{{route('movimentos.confirmar', $movimento)}}" method="POST" role="form" class="inline">
-                    {{ csrf_field() }}
-                    <button type="submit" class="btn btn-xs btn-primary">Confirmar</button>
                 </form>
                
                 </td>

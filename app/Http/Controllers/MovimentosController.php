@@ -142,12 +142,6 @@ class MovimentosController extends Controller
 
         $preco_voo = $tempo_voo*$preco_hora;
 
-
-
-
-
-
-
            $conflito = false;
        
         
