@@ -9,6 +9,8 @@ use Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use Illuminate\Support\Facades\Storage;
+
 class UserController extends Controller
 {
     public function __construct()
@@ -25,8 +27,8 @@ class UserController extends Controller
 
     public function show(User $user)
     {
-        $users = DB::table('users')->get();
-        return view('socios.index', compact('user'));
+        $users = User::all();
+        return view('socios.index', compact('users'));
     }
 
     public function showFichas(User $user)
@@ -47,6 +49,30 @@ class UserController extends Controller
         return view('socios.ativar', compact('users'));
     }
 
+    public function viewCertLice(User $piloto)
+    {
+        $this->authorize('viewCertLice', $piloto);
+        return view('socios.pilotos.licenca', compact('piloto'));
+    }
+
+    public function showCertificado(User $piloto)
+    {
+        //NOTE: Como ta na public folder qualquer um pode aceder?
+
+
+        $this->authorize('viewCertLice', $piloto);
+        // certificado_10001
+        // $certificado = Storage::get('/storage/app/docs_piloto/certificado_'.$piloto->id.'.pdf');
+        $path = storage_path('app/public/docs_piloto/certificado_' . $piloto->id . '.pdf');
+
+
+        return response()->file($path); //WORKING, but shows full page
+
+
+        // return view('socios.pilotos.certificado', compact('piloto'));
+        // ->file('/storage/app/docs_piloto/certificado_'.$piloto->id.'.pdf')
+        // ->header('Content-Type', 'pdf');
+    }
 
     public function create()
     {
@@ -60,9 +86,9 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         $image = $request->file('foto_url');
-        $name = time().'.'.$image->getClientOriginalExtension();
+        $name = time() . '.' . $image->getClientOriginalExtension();
         $path = $request->file('foto_url')->storeAs('public/fotos', $name);
-    
+
         $user = new User();
         $user->fill($request->all());
         $user->image = $name;
@@ -86,9 +112,9 @@ class UserController extends Controller
     {
         $this->authorize('update', $user);
 
-        if(! is_null($request['foto_url'])) {
+        if (!is_null($request['foto_url'])) {
             $image = $request->file('foto_url');
-            $name = time().'.'.$image->getClientOriginalExtension();
+            $name = time() . '.' . $image->getClientOriginalExtension();
 
             $path = $request->file('')->storeAs('public/fotos', $name);
         }
@@ -103,7 +129,7 @@ class UserController extends Controller
     }
 
     public function destroy(User $user)
-    {   
+    {
         $this->authorize('delete', $user);
         $user->delete();
 
@@ -111,6 +137,4 @@ class UserController extends Controller
             ->route('socios.index')
             ->with('success', 'Utilizador apagado com sucesso!');
     }
-
-
 }

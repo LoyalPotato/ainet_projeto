@@ -51,4 +51,9 @@ class UserPolicy
         return $user->tipo_socio == 'P';
     }
 
+    public function viewCertLice(User $user)
+    {
+        return $user->tipo_socio == 'P' || $user->direcao;
+    }
+
 }

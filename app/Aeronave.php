@@ -37,12 +37,12 @@ class Aeronave extends Model
         return $this->belongsToMany('App\User','aeronaves_pilotos', 'matricula', 'piloto_id');
     }
 
-    public function updateNave($request, Aeronave $aeronave)
+    public function updateNave($request)
     {
         $naves_valores = array_splice($request, -2, count($request));
-        $aeronave->fill($request);
-        $aeronave->save();
-        foreach ($aeronave->valores as $valor) {
+        $this->fill($request);
+        $this->save();
+        foreach ($this->valores as $valor) {
             $valor->fill([
             'minutos'=> $naves_valores['tempos'][$valor->unidade_conta_horas - 1],
            'preco' => $naves_valores['precos'][$valor->unidade_conta_horas - 1]

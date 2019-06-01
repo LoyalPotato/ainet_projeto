@@ -34,8 +34,8 @@ class AeronaveController extends Controller
      */
     public function create()
     {
-        // $naves_valores = DB::table('aeronaves_valores')->get(); , 'naves_valores'
-        return view('aeronaves.aeronaves_create');
+        $aeronave = Aeronave::new();
+        return view('aeronaves.aeronaves_create', compact('aeronave'));
     }
     /**
      * Store a newly created resource in storage.
@@ -45,6 +45,12 @@ class AeronaveController extends Controller
      */
     public function store(StoreAeronave $request)
     {
+
+        /* 
+        Na tabela pode-se definir que 6 unidades de tempo nessa aeronave
+        correspondem a 35 minutos e 65€, permitindo desta forma a utilização de valores
+        arredondados e mais fáceis de gerir
+        */
         // NOTE: Tem (user) autorizacao para criar Definido no store aero
         $this->authorize('create', Aeronave::class);
         $validated = $request->validated();
@@ -67,15 +73,22 @@ class AeronaveController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function storePiloto(StoreAeronave $request)
+    public function storePiloto(Aeronave $aeronave, User $piloto)
     {
         /* 
         NOTE:
         Check if piloto exists
-
+        Check if it's already authorized
         */
 
-        return redirect('/aeronaves');
+        DB::table('aeronaves_pilotos')->insert([
+            'matricula' => $aeronave->matricula,
+            'piloto_id' => $piloto->id
+        ]);
+
+        session()->flash('sucesso', 'Autorização realizada com sucesso');
+
+        return redirect()->back();
     }
     /**
      * Display the specified resource.
@@ -116,13 +129,13 @@ class AeronaveController extends Controller
     public function showPilotos(Aeronave $aeronave)
     {
         $this->authorize('view', $aeronave);
-        $users_auto = $aeronave->pilotos()->paginate(5);
+        $users_auto = $aeronave->pilotos()->where('tipo_socio', 'P')->paginate(5);
         //NOTE: Get all ids not in  ^ 
-        dd($aeronave->pilotos);
         foreach ($users_auto as $piloto) {
             $ids_not_auto[] =  $piloto->id;
         }
-        $users_not_auto = User::where('id', '!=', $ids_not_auto)->paginate(5);
+
+        $users_not_auto = User::where('tipo_socio', 'P')->whereNotIn('id', $ids_not_auto)->paginate(5);
         return view('aeronaves.aeronaves_pilotos', compact('aeronave', 'users_auto', 'users_not_auto'));
     }
     /**
@@ -146,7 +159,7 @@ class AeronaveController extends Controller
     {
         $this->authorize('update', $aeronave);
         $validated = $request->validated();
-        $aeronave->updateNave($validated, $aeronave);
+        $aeronave->updateNave($validated);
         return redirect('/aeronaves');
     }
     /**
@@ -158,13 +171,6 @@ class AeronaveController extends Controller
     public function destroy(Aeronave $aeronave)
     {
         $this->authorize('delete', $aeronave);
-        /* 
-        As aeronaves são removidas com soft deletes se estiverem associados a algum movimento.
-        Caso contrário, os registos deverão ser apagados da base de dados.
-        Apaga uma aeronave. Apaga também o mapa que cruza as unidades do
-        conta-horas com o tempo e preço. Se não for possível apagar a
-        aeronave, faz um "softdelete" sem apagar o mapa
-        */
         if ($aeronave->movimentos->isEmpty()) {
             $aeronave->forceDelete();
             $aeronave->valores()->delete();
@@ -181,11 +187,14 @@ class AeronaveController extends Controller
      * @param \App\User       $pilotoAuto
      * @return \Illuminate\Http\Response
      */
-    public function destroyPiloto(User $pilotoAuto, Aeronave $aeronave)
+    public function destroyPiloto(Aeronave $aeronave, User $piloto)
     {
         $this->authorize('delete', $aeronave);
-        // BUG: Removeu a aeronave da tabela pivot o.0
-        // $aeronave->pilotos()->attach($pilotoAuto->id);
+        DB::table('aeronaves_pilotos')->where('piloto_id', '=', $piloto->id)
+            ->where('matricula', '=', $aeronave->matricula)
+            ->delete();
+        session()->flash('sucesso', 'Autorização removida com sucesso');
+
         return redirect()->back();
     }
 }
