@@ -20,8 +20,23 @@ Auth::routes(['verify' => true]);
 // NOTE: Inves de middleware de ativo, poderia ter usado o verified?
 Route::get('/home', 'HomeController@index')->name('home')->middleware('ativo');
 
-//----------            David               ---------------
 
+
+//----------            Dinis               ---------------
+
+Route::get('movimentos', 'MovimentosController@index')->name('movimentos.index');
+Route::get('movimentos/{movimento}/edit','MovimentosController@edit')->name('movimentos.edit');
+Route::get('movimentos/create','MovimentosController@create')->name('movimentos.create');
+Route::post('movimentos/{movimento}/confirmar','MovimentosController@confirmar')->name('movimentos.confirmar');
+
+Route::post('movimentos', 'MovimentosController@store')->name('movimentos.store');
+Route::put('movimentos/{movimento}', 'MovimentosController@update')->name('movimentos.update');
+Route::get('movimentos/estatisticas','MovimentosController@estatistica')->name('movimentos.estatistica');
+Route::delete('movimentos/{movimento}','MovimentosController@destroy')->name('movimentos.destroy');
+
+
+
+//------            David               ----------
 Route::get('password', 'PasswordController@index')->name('password');
 Route::patch('password', 'PasswordController@update');
 //NOTE: Rotas aeronaves
@@ -34,9 +49,10 @@ Route::resource('aeronaves', 'AeronaveController')->parameters(['aeronaves' => '
 
 
 
-
 Route::get('/pilotos/{piloto}/certificado', 'UserController@showCertificado')->name('piloto_cert');
 Route::get('/pilotos/{piloto}/licenca', 'UserController@showLicenca')->name('piloto_lic');
+
+
 //-----------          Marce                 --------------------
 
 Route::patch('/socios/{user}/quota', 'UserController@ativarDesativarQuota');
@@ -56,7 +72,3 @@ Route::resource('socios', 'UserController')->parameters(['socios' => 'user']);
 
 
 
-//----------            Dinis               ---------------
-Route::resource('movimentos', 'MovimentoController')->parameters(['movimentos' => 'movimento']);
-Route::get('movimentos/create', 'MovimentoController@create');
-Route::get('movimentos/estatisticas', 'MovimentoController@estatisticas');
