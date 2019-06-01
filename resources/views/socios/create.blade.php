@@ -60,8 +60,8 @@
         <label for="sexo">Sexo</label>
             <select name="sexo" id="sexo" class="form-control">
                 <option disabled selected> -- Selecione uma opção -- </option>
-                <option value="0" {{ old('sexo', strval($user->sexo)) == "M" ? 'selected' : '' }} >Masculino</option>
-                <option value="1" {{ old('sexo', strval($user->sexo)) == "F" ? 'selected' : '' }} >Feminino</option>
+                <option value="M" {{ old('sexo', strval($user->sexo)) == "M" ? 'selected' : '' }} >Masculino</option>
+                <option value="F" {{ old('sexo', strval($user->sexo)) == "F" ? 'selected' : '' }} >Feminino</option>
             </select>
     </div>
 
@@ -119,11 +119,11 @@
 
     <div class="container mb-4">
         <label for="tipo_socio">Tipo Sócio</label>
-            <select onchange="yesnoCheck(this);" id="tipo_socio" class="form-control">
+            <select name="tipo_socio" onchange="yesnoCheck(this);" id="tipo_socio" class="form-control">
                 <option disabled selected> -- Selecione uma opção -- </option>
-                <option value="0" {{ old('tipo_socio', strval($user->tipo_socio)) == "P" ? 'selected' : '' }} >Piloto</option>
-                <option value="1" {{ old('tipo_socio', strval($user->tipo_socio)) == "NP" ? 'selected' : '' }} >Nao piloto</option>
-                <option value="2" {{ old('tipo_socio', strval($user->tipo_socio)) == "A" ? 'selected' : '' }} >Aeromodelista</option>
+                <option value="P" {{ old('tipo_socio', strval($user->tipo_socio)) == "P" ? 'selected' : '' }} >Piloto</option>
+                <option value="NP" {{ old('tipo_socio', strval($user->tipo_socio)) == "NP" ? 'selected' : '' }} >Nao piloto</option>
+                <option value="A" {{ old('tipo_socio', strval($user->tipo_socio)) == "A" ? 'selected' : '' }} >Aeromodelista</option>
             </select>
     </div>
 

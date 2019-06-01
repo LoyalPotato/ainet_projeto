@@ -10,17 +10,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\UserCreated;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\SocioCriado;
 
 class UserController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('ativo');
     }
 
     public function index()
     {
         $user = Auth::user();
+        // dd($user);
         $pagetitle = "Sócios";
         return view('socios.index', compact('user', 'pagetitle'));
     }
@@ -90,23 +93,35 @@ class UserController extends Controller
     {
         $this->authorize('create', User::class);
         $validated = $request->validated();
+        
+        /* 
 
+
+2019-06-19
+
+
+
+*/
+        
         $image = $request->file('foto_url');
         $name = time() . '.' . $image->getClientOriginalExtension();
-        $path = $request->file('foto_url')->storeAs('public/fotos', $name);
-
+        $request->file('foto_url')->storeAs('public/fotos', $name);
         $user = new User();
-        $user->fill($request->all());
+        $user->fill($validated);
         $user->foto_url = $name;
-        $user->password = Hash::make($request->password);
+        // dd($request);
+        $user->password = Hash::make($validated['data_nascimento']);
         $user->save();
+        
 
-        $mail = Mail::to($request->$user->email)
-        ->send(
-            new UserCreated($user)
-        );
+       
+        $user->notify(new SocioCriado);
 
-        dd($mail);
+        // Mail::to($user->email)
+        //     ->send(
+        //         new UserCreated($user)
+        //     );
+
 
         return redirect()
             ->route('socios.index')
@@ -134,6 +149,7 @@ class UserController extends Controller
 
         $user->fill($request->validated());
         $user->foto_url = $name;
+       
         $user->save();
 
         return redirect()

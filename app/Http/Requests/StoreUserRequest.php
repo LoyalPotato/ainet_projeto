@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
 
 class StoreUserRequest extends FormRequest
 {
@@ -24,20 +26,20 @@ class StoreUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'num_socio' => 'required|max:4|confirmed',
+            'num_socio' => 'required|max:4',
             'email' => 'required|email',
-            'nome_informal' => 'required|alpha_dash',
-            'name' => 'required|alpha_dash',
-            'tipo_socio' => 'required|between:0,2',
+            'nome_informal' => 'required',
+            'name' => 'required',
+            'tipo_socio' => Rule::in(['P', 'NP', 'A']),
             'sexo' => 'required|between:0,1',
             'quota_paga' => 'required|between:0,1',
             'ativo' => 'required|between:0,1',
             'direcao' => 'required|between:0,1',
             'data_nascimento' => 'required|date',
-            'nif' => 'required|min:10|max:10|confirmed',
+            'nif' => 'required|min:8|max:10',
             'endereco' => 'required|alpha_dash',
-            'telefone' => 'required|min:9|max:9|confirmed',
-            'foto_url' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'telefone' => 'required|min:9|max:9',
+            'foto_url' => 'required|image|max:2048'
         ];
     }
 }

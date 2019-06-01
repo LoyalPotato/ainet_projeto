@@ -13,8 +13,7 @@
                             {{ __('Foi reenviado um link de ativaçao') }}
                         </div>
                     @endif
-
-                    {{ __('Antes de proceder, por favor verifique o seu email') }}
+                    
                     {{ __('Se não recebeu um email') }}, <a href="{{ route('verification.resend') }}">{{ __('pode clicar aqui para pedir outro') }}</a>.
                 </div>
             </div>

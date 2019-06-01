@@ -23,12 +23,11 @@ class StoreAeronave extends FormRequest
      */
     public function rules()
     {
-        /* 
-        matricula, marca, modelo, num_lugares,
-        conta_horas, preco_hora, tempos[], precos[ ]
+        /*
+        8 caracteres de A-Z e com números e hífens.  
         */
         return [
-            'matricula' => ['required', 'unique:aeronaves', 'max:8'],
+            'matricula' => ['required', 'unique:aeronaves', 'alpha_dash', 'max:8',],
             'marca' => ['required', 'max:40'],
             'modelo' => ['required', 'max:40'],
             'num_lugares' => ['required','min:1', 'integer'],

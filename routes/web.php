@@ -17,6 +17,7 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 
+// NOTE: Inves de middleware de ativo, poderia ter usado o verified?
 Route::get('/home', 'HomeController@index')->name('home')->middleware('ativo');
 
 //----------            David               ---------------

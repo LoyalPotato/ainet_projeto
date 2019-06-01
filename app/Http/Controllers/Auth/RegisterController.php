@@ -64,7 +64,6 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
 
-        // TODO: É aqui que fazemos o socio create
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],

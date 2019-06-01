@@ -9,8 +9,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use SoftDeletes;
     use Notifiable;
+    use SoftDeletes;
     /**
      *
      * @var array
@@ -44,6 +44,36 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     protected $table = 'users';
+
+    public function hasVerifiedEmail()
+    {
+        return ! is_null($this->email_verified_at);
+    }
+
+    /**
+     * Mark the given user's email as verified.
+     *
+     * @return bool
+     */
+    public function markEmailAsVerified()
+    {
+        // dd($this);
+        $this->ativo = "1";
+        // dd($this);
+        return $this->forceFill([
+            'email_verified_at' => $this->freshTimestamp(),
+        ])->save();
+    }
+
+    /**
+     * Send the email verification notification.
+     *
+     * @return void
+     */
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new Notifications\SocioCriado);
+    }
 
 
     public function aeronaves()

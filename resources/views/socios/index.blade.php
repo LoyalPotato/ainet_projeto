@@ -4,19 +4,18 @@
 
 @can('create', \App\User::class)
 <div class="container">
-    @if (count($users)>1)
+
     <a class="btn btn-outline-primary mb-2 mr-2 float-left " href="{{ url('/socios/create') }}"> Novo sócio </a>
     <a class="btn btn-outline-primary mb-2 mr-2 float-left " href="{{ url('/socios/quotas') }}"> Gerir quotas </a>
     <a class="btn btn-outline-primary mb-2 mr-2 float-left " href="{{ url('/socios/ativar') }}"> Ativar/Desativar sócios
     </a>
     <a class="btn btn-outline-primary mb-2 mr-2 float-left " href="{{ url('/socios/fichas') }}"> Fichas sócios </a>
-    @endif
+    
 </div>
 @endcan
 
+{{-- BUG: DEBUG --}}
 
-
-@if(count($users))
 
 <div class="container">
     <table class="table table-striped">
@@ -39,7 +38,6 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($users as $user)
             <tr>
                 <td>{{$user->num_socio}}</td>
                 <td>{{$user->id}}</td>
@@ -70,14 +68,8 @@
                 </td>
                 @endcan
             </tr>
-            @endforeach
     </table>
-    @if (count($users) > 1)
-    {{ $users->links() }}
-    @endif
+
 </div>
 
-@else
-<h2>Não foram encontrados sócios</h2>
-@endif
 @endsection

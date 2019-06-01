@@ -9,6 +9,8 @@ class PasswordController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('ativo');
+
     }
     
     public function index()

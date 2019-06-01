@@ -8,6 +8,12 @@ use App\User;
 
 class MovimentosController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('ativo');
+
+    }
     public function index(Request $request)
     {        
          //$this->authorize('list', Movimento::class);
