@@ -5,38 +5,29 @@
 
 @can('create', \App\User::class)
 <div class="container mb-4">
-    <a class="btn btn-outline-primary mb-2 mr-2 float-right " href="{{ url('/socios/ativar') }}"> Ativar/Desativar sócios </a>
-    <a class="btn btn-outline-primary mb-2 mr-2 float-right " href="{{ url('/socios/quotas') }}"> Gerir quotas </a>
-    <a class="btn btn-outline-primary mb-4 mr-2 float-right " href="{{ url('/socios/create') }}"> Novo sócio </a>
+    <a class="btn btn-outline-primary mb-2 mr-2 float-left " href="{{ url('/socios/ativar') }}"> Ativar/Desativar sócios </a>
+    <a class="btn btn-outline-primary mb-2 mr-2 float-left " href="{{ url('/socios/quotas') }}"> Gerir quotas </a>
+    <a class="btn btn-outline-primary mb-4 mr-2 float-left " href="{{ url('/socios/create') }}"> Novo sócio </a>
 </div>
 @endcan
 
 @if (count($users))
 <div class="container">
-    <form action="/socios/fichas_direcao" method="GET" class="inline">
+    <form action="/socios/fichas_direcao" method="GET" role="form" class="inline">
                     <table class="table table-sm table-striped">
                         <thead>
                             <tr>
                                 <th>
-                                    <p style="color:blue;">Nº Sócio: <p>
-                                    <input
-                                            type="text" class="form-control"
-                                            name="num_socio" id="num_socio"
-                                            value="{{ old('num_socio') }}"/>
+                                <label for="num_socio" class="mr-2">Numero Socio</label>
+                                    <input type="text" class="form-control" name="num_socio" id="num_socio" value="{{ old('num_socio') }}">
                                 </th>
                                 <th>
-                                    <p style="color:blue;">Nome Informal: <p>
-                                        <input
-                                            type="text" class="form-control"
-                                            name="nome_informal" id="nome_informal"
-                                            value="{{ old('nome_informal') }}"/>
+                                <label for="nome_informal" class="mr-2">Nome Informal</label>
+                                    <input type="text" class="form-control" name="nome_informal" id="nome_informal" value="{{ old('nome_informal') }}">
                                 </th>
                                 <th>
-                                    <p style="color:blue;">Email: <p>
-                                        <input
-                                            type="email" class="form-control"
-                                            name="email" id="email"
-                                            value="{{old('email')}}"/> 
+                                <label for="email" class="mr-2">Email</label>
+                                    <input type="email" class="form-control" name="email" id="email" value="{{ old('email') }}">
                                 </th>
                             </tr>
                         </thead>
@@ -46,29 +37,27 @@
                         <thead>
                             <tr>
                                 <th>
-                                    <p style="color:blue;">Tipo Sócio: <p>                        
+                                <label for="tipo_socio">Tipo Sócio</label>
                                     <select name="tipo_socio" id="tipo_socio" class="form-control">
-                                    <option disabled selected> -- Selecione uma opção -- </option>
-                                        <option value="P">Piloto</option>
-                                        <option value="NP">Não Piloto</option>
-                                        <option value="A">Aeromodelista</option>
-                                    </select> 
-                                </th>
-
-                                <th>
-                                    <p style="color:blue;">Direção: <p>                        
-                                    <select name="sexo" id="sexo" class="form-control">
-                                    <option disabled selected> -- Selecione uma opção -- </option>
-                                        <option value="1">Sim</option>
-                                        <option value="0">Não</option>
+                                            <option value="Seleciona opcao"></option>
+                                            <option value="P">Piloto</option>
+                                            <option value="NP">Não piloto</option>
+                                            <option value="A">Aeromodelista</option>
                                     </select>
                                 </th>
 
-
+                                <th>
+                                <label for="sexo">Sexo</label>
+                                    <select name="sexo" id="sexo" class="form-control">
+                                            <option value="Selecione opcao"></option>
+                                            <option value="M">Masculino</option>
+                                            <option value="F">Feminino</option>
+                                    </select>
+                                </th>
                             </tr>
                         </thead>
                     </table>
-                    <div class="container float-left mb-4">
+                    <div class="container mb-4">
                         <button type="submit" class="btn btn-primary">Filtrar</button>
                     </div>
         </form>
@@ -79,9 +68,7 @@
     <h3> Lista de sócios</h3>
 </div>
 
-
 <div class="container">
-@csrf
 <table class="table table-sm table-striped">
     <thead>
         <tr>
@@ -99,7 +86,7 @@
             <th> </th>
         </tr>
     </thead>
-    <tbody id="myTable">
+    <tbody>
     @foreach ($users as $user)
         <tr>
             <td>

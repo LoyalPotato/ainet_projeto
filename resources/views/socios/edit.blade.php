@@ -3,17 +3,17 @@
 @section('title', 'Editar Sócio')
 @section('content')
 
+
 <div class="container mb-4">
     <h3> Editar sócio </h3>
 </div>
 
-@can('edit', $user)
 
-<div class="container">
 @include('layouts.errors')
 
-<form method="POST" action="/socios/{{$user->user}}" enctype="multipart/form-data">
-    @method('PUT')
+<div class="container">
+<form method="POST" action="{{route('socios.update', $user)}}" enctype="multipart/form-data">
+    @method('PATCH')
     @csrf
     <div class="container mb-4">
         <img src="{{ $user->foto_url == null ? asset('storage/fotos/noimage.jpg') : asset('storage/fotos/' . $user->foto_url)}}" class="img-thumbnail"/>
@@ -40,8 +40,8 @@
         <label for="sexo">Sexo</label>
             <select name="sexo" id="sexo" class="form-control" value="{{ $user->sexo}}">
                 <option disabled selected> -- Selecione uma opção -- </option>
-                <option value="0" {{ old('sexo', strval($user->sexo)) == "M" ? 'selected' : '' }} >Masculino</option>
-                <option value="1" {{ old('sexo', strval($user->sexo)) == "F" ? 'selected' : '' }} >Feminino</option>
+                <option value="M" {{ old('sexo', strval($user->sexo)) == "M" ? 'selected' : '' }} >Masculino</option>
+                <option value="F" {{ old('sexo', strval($user->sexo)) == "F" ? 'selected' : '' }} >Feminino</option>
             </select>
     </div>
 
@@ -101,9 +101,9 @@
         <label for="tipo_socio">Tipo Sócio</label>
             <select name="tipo_socio" id="tipo_socio" class="form-control" value="{{ $user->tipo_socio}}">
                 <option disabled selected> -- Selecione uma opção -- </option>
-                <option value="0" {{ old('tipo_socio', strval($user->tipo_socio)) == "P" ? 'selected' : '' }} >Piloto</option>
-                <option value="1" {{ old('tipo_socio', strval($user->tipo_socio)) == "NP" ? 'selected' : '' }} >Nao piloto</option>
-                <option value="2" {{ old('tipo_socio', strval($user->tipo_socio)) == "A" ? 'selected' : '' }} >Aeromodelista</option>
+                <option value="P" {{ old('tipo_socio', strval($user->tipo_socio)) == "P" ? 'selected' : '' }} >Piloto</option>
+                <option value="NP" {{ old('tipo_socio', strval($user->tipo_socio)) == "NP" ? 'selected' : '' }} >Nao piloto</option>
+                <option value="A" {{ old('tipo_socio', strval($user->tipo_socio)) == "A" ? 'selected' : '' }} >Aeromodelista</option>
             </select>
     </div>
 
@@ -121,6 +121,4 @@
 </form>
 </div>
 
-
-@endcan
 @endsection

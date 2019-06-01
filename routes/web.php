@@ -39,24 +39,20 @@ Route::get('/pilotos/{piloto}/certificado', 'UserController@showCertificado')->n
 Route::get('/pilotos/{piloto}/licenca', 'UserController@showLicenca')->name('piloto_lic');
 //-----------          Marce                 --------------------
 
-Route::any('socios', 'UserController@index');
-
-Route::patch('/socios/{user}/quota', 'UserController@showFichas');
-Route::patch('/socios/reset_quota', 'UserController@showFichasDirecao');
+Route::patch('/socios/{user}/quota', 'UserController@ativarDesativarQuota');
+Route::patch('/socios/reset_quotas', 'UserController@resetQuotas')->name('socios.quotas');
+Route::patch('/socios/desativar_sem_quotas', 'UserController@deactivateSocios')->name('socios.ativar');
 Route::patch('/socios/{user}/ativo', 'UserController@showQuotas');
-Route::patch('/socios/desativar_sem_quotas', 'UserController@showAtivarDesativar');
 
-// NOTE: Create?
 Route::post('/socios/{socio}/send_reactivate_mail', 'UserController@create');
+Route::put('/socios/{user}/edit', 'UserController@update');
 
 Route::get('/socios/fichas', 'UserController@showFichas');
 Route::get('/socios/fichas_direcao', 'UserController@showFichasDirecao');
 Route::get('/socios/quotas', 'UserController@showQuotas');
 Route::get('/socios/ativar', 'UserController@showAtivarDesativar');
 
-
 Route::resource('socios', 'UserController')->parameters(['socios' => 'user']);
-
 
 
 

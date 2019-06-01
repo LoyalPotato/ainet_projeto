@@ -18,20 +18,20 @@
 
 
 <div class="container md-8 mb-2">
-    <label for="numero_licenca" class="mr-2">Numero Licença</label>
-    <input type="number" name="numero_licenca" id="numero_licenca" value="{{ $user->num_licenca}}">
+    <label for="num_licenca" class="mr-2">Numero Licença</label>
+    <input type="number" name="num_licenca" id="num_licenca" value="{{ $user->num_licenca}}">
 </div>
 
 <div class="container mb-4">
         <label for="tipo_licenca">Tipo Licença</label>
             <select name="tipo_licenca" id="tipo_licenca" class="form-control">
                 <option disabled selected> -- Selecione uma opção -- </option>
-                <option value="0" {{ old('tipo_licenca', strval($user->tipo_licenca)) == "CPL(A)" ? 'selected' : '' }} >CPL(A)</option>
-                <option value="1" {{ old('tipo_licenca', strval($user->tipo_licenca)) == "ATPL" ? 'selected' : '' }} >ATPL</option>
-                <option value="2" {{ old('tipo_licenca', strval($user->tipo_licenca)) == "ALUNO-PPL(A)" ? 'selected' : '' }} >ALUNO-PPL(A)</option>
-                <option value="3" {{ old('tipo_licenca', strval($user->tipo_licenca)) == "ALUNO-PU" ? 'selected' : '' }} >ALUNO-PU</option>
-                <option value="4" {{ old('tipo_licenca', strval($user->tipo_licenca)) == "PPL(A)" ? 'selected' : '' }} >PPL(A)</option>
-                <option value="5" {{ old('tipo_licenca', strval($user->tipo_licenca)) == "PU" ? 'selected' : '' }} >PU</option>
+                <option value="CPL(A)" {{ old('tipo_licenca', strval($user->tipo_licenca)) == "CPL(A)" ? 'selected' : '' }} >CPL(A)</option>
+                <option value="ATPL" {{ old('tipo_licenca', strval($user->tipo_licenca)) == "ATPL" ? 'selected' : '' }} >ATPL</option>
+                <option value="ALUNO-PPL(A)" {{ old('tipo_licenca', strval($user->tipo_licenca)) == "ALUNO-PPL(A)" ? 'selected' : '' }} >ALUNO-PPL(A)</option>
+                <option value="ALUNO-PU" {{ old('tipo_licenca', strval($user->tipo_licenca)) == "ALUNO-PU" ? 'selected' : '' }} >ALUNO-PU</option>
+                <option value="PPL(A)" {{ old('tipo_licenca', strval($user->tipo_licenca)) == "PPL(A)" ? 'selected' : '' }} >PPL(A)</option>
+                <option value="PU" {{ old('tipo_licenca', strval($user->tipo_licenca)) == "PU" ? 'selected' : '' }} >PU</option>
             </select>
     </div>
 
@@ -45,6 +45,9 @@
         {{-- TODO: Download link --}}
     <input type="file" name="file_licenca" id="file_licenca" class="form-control" value="{{ $user->file_licenca }}">
     @endcan
+    <?php
+        $user->licenca_confirmada = 0;
+    ?>
 </div>     
 
 
@@ -73,9 +76,9 @@
         <label for="classe_certificado">Classe Certificado</label>
             <select name="classe_certificado" id="classe_certificado" class="form-control">
                 <option disabled selected> -- Selecione uma opção -- </option>
-                <option value="0" {{ old('classe_certificado', strval($user->classe_certificado)) == "Class 1" ? 'selected' : '' }} >Class 1</option>
-                <option value="1" {{ old('classe_certificado', strval($user->classe_certificado)) == "Class 2" ? 'selected' : '' }} >Class 2</option>
-                <option value="2" {{ old('classe_certificado', strval($user->classe_certificado)) == "LAPL" ? 'selected' : '' }} >LAPL</option>
+                <option value="Class 1" {{ old('classe_certificado', strval($user->classe_certificado)) == "Class 1" ? 'selected' : '' }} >Class 1</option>
+                <option value="Class 2" {{ old('classe_certificado', strval($user->classe_certificado)) == "Class 2" ? 'selected' : '' }} >Class 2</option>
+                <option value="LAPL" {{ old('classe_certificado', strval($user->classe_certificado)) == "LAPL" ? 'selected' : '' }} >LAPL</option>
             </select>
 </div>
 
@@ -87,6 +90,9 @@
     </a>
     <input type="file" name="file_certificado" id="file_certificado" class="form-control" value="{{ $user->file_certificado}}">
     @endcan
+    <?php
+        $user->certificado_confirmado = 0;
+    ?>
 </div> 
 
 <div class="container mb-2">

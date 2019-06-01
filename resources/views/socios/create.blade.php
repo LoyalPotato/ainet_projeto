@@ -9,11 +9,10 @@
 
 
 
-
 <script>
     function yesnoCheck(that) {
         if (that.value == "P") {
-            alert("Campos relacionados aos pilotos adicionados!!");
+            alert("Campos de piloto adicionados!!");
             document.getElementById("create_piloto_forms").style.display = "block";
         } else {
             document.getElementById("create_piloto_forms").style.display = "none";
@@ -21,15 +20,10 @@
     }   
 </script>
 
-@if (session('success'))
-<div class="alert alert-success">
-    <p>{{ session('sucesso') }}</p>
-</div>
-@endif
+
 
 
 @include('layouts.errors')
-
 @can('view', $user)
 
 <div class="container">
@@ -127,20 +121,15 @@
             </select>
     </div>
 
-
-    
-
     <div id="create_piloto_forms" style="display: none;">
         @include('socios.pilotos.create_piloto')
     </div>
     
-   
-
-
     <div class="container mb-2">
-        <button type="submit" class="btn btn-success" name="ok">Adicionar</button>
+        <button type="submit" class="btn btn-success">Adicionar</button>
         <a type="submit" class="btn btn-default" href="{{route('socios.index')}}">Cancelar</a>
-        
+    <a type="submit" class="btn btn-primary float-right" href="route{{'verification.resend'}}">Reenviar confirmação email</a>
+    {{-- TEST: --}}
     </div>
 
 

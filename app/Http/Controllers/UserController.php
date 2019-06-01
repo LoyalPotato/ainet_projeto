@@ -24,7 +24,6 @@ class UserController extends Controller
     public function index()
     {
         $user = Auth::user();
-        // dd($user);
         $pagetitle = "Sócios";
         return view('socios.index', compact('user', 'pagetitle'));
     }
@@ -55,30 +54,9 @@ class UserController extends Controller
     public function showAtivarDesativar(User $user)
     {
         $users = User::paginate(5);
-        return view('socios.ativar-desativar', compact('users'));
-    }
-    //TODO: Ativar 
-    public function ativar(User $users)
-    {
-        dd($users);
-
-        return redirect()->back();
-    }
-    // TODO: Desativar
-    public function desativar(User $users)
-    {
-        dd($users);
-
-        return redirect()->back();
+        return view('socios.ativar', compact('users'));
     }
 
-    public function resetQuotas()
-    {
-        $users = User::all();
-        foreach ($users as $user) {
-            $user->quota_paga = 0;
-        }
-    }
 
     public function showLicenca(User $piloto)
     {
@@ -104,7 +82,6 @@ class UserController extends Controller
 
         return Storage::response($path);
     }
-
 
     public function create()
     {
@@ -156,18 +133,16 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
         $this->authorize('update', $user);
-        $validated = $request->validated();
 
-        if (!is_null($request['foto_url'])) {
-            $image = $request->file('foto_url');
-            $name = time() . '.' . $image->getClientOriginalExtension();
-
+        if(! is_null($request['file_foto'])) {
+            $image = $request->file('file_foto');
+            $name = time().'.'.$image->getClientOriginalExtension();
             $path = $request->file('')->storeAs('public/fotos', $name);
         }
 
+
         $user->fill($request->validated());
         $user->foto_url = $name;
-       
         $user->save();
 
         return redirect()
@@ -178,10 +153,53 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $this->authorize('delete', $user);
+        // TODO:
+        /*
+        if ($user->movimentos->isEmpty()) {
+            $user->forceDelete();
+            $user->valores()->delete();
+        } else {
         $user->delete();
+        }
+        */
+
+        $user->forceDelete();
 
         return redirect()
             ->route('socios.index')
             ->with('success', 'Utilizador apagado com sucesso!');
     }
+
+    public function resetQuotas()
+    {
+        $users = User::all();
+        foreach($users as $user)
+        {
+            $user->quota_paga = 0;
+            $user->save();
+        }
+
+        return redirect()
+            ->route('socios.index')
+            ->with('success', 'Quotas reiniciadas com sucesso!');
+    }
+
+    public function deactivateSocios()
+    {
+        $users = User::all();
+        foreach($users as $user)
+        {
+            if($user->quota_paga == 0){
+                $user->ativo = 0;
+                $user->save();
+            }
+        }
+
+        return redirect()
+            ->route('socios.index')
+            ->with('success', 'Socios com quotas por pagar desativados com sucesso!');
+    }
+
+
+
 }
