@@ -30,7 +30,7 @@ class AeronavePolicy
      */
     public function create(User $user)
     {
-        return $user->direcao;
+        return $user->direcao && $user->hasVerifiedEmail() && $user->ativo;
     }
 
     /**
@@ -42,7 +42,7 @@ class AeronavePolicy
      */
     public function update(User $user, Aeronave $aeronave)
     {
-        return $user->direcao;
+        return $user->direcao && $user->hasVerifiedEmail() && $user->ativo;
     }
 
     /**
@@ -54,7 +54,7 @@ class AeronavePolicy
      */
     public function delete(User $user, Aeronave $aeronave)
     {
-        return $user->direcao;
+        return $user->direcao && $user->hasVerifiedEmail() && $user->ativo;
     }
 
     /**
@@ -68,4 +68,9 @@ class AeronavePolicy
     {
         //
     }
+
+    // TEST:
+    // public function storeAeroPiloto(User $user, Aeronave $aeronave)
+    // {
+    // }
 }

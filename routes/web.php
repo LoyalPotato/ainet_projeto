@@ -17,7 +17,6 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 
-// Route::get('/email/verify/{id}', 'UserController@viewActive')
 Route::get('/home', 'HomeController@index')->name('home')->middleware('ativo');
 
 //----------            David               ---------------
@@ -38,14 +37,23 @@ Route::resource('aeronaves', 'AeronaveController')->parameters(['aeronaves' => '
 Route::get('/pilotos/{piloto}/certificado', 'UserController@showCertificado')->name('piloto_cert');
 Route::get('/pilotos/{piloto}/licenca', 'UserController@showLicenca')->name('piloto_lic');
 //-----------          Marce                 --------------------
-Route::get('socios/fichas', 'UserController@showFichas');
-Route::get('socios/quotas', 'UserController@showQuotas');
-Route::get('socios/ativar', 'UserController@showAtivarDesativar');
-Route::view('socios/quotasNaoPagas', 'UserController@show')->name('socios.quotasNaoPagas');
-//resolver esta rota
-Route::patch('socios/{user}/quotas', 'UserController@store')->name('socios.quotas');
+
+Route::any('socios', 'UserController@index');
+
+Route::patch('/socios/{user}/quota', 'UserController@showFichas');
+Route::patch('/socios/reset_quota', 'UserController@showFichasDirecao');
+Route::patch('/socios/{user}/ativo', 'UserController@showQuotas');
+Route::patch('/socios/desativar_sem_quotas', 'UserController@showAtivarDesativar');
+
+Route::post('/socios/{socio}/send_reactivate_mail', 'UserController@create');
+
+Route::get('/socios/fichas', 'UserController@showFichas');
+Route::get('/socios/fichas_direcao', 'UserController@showFichasDirecao');
+Route::get('/socios/quotas', 'UserController@showQuotas');
+Route::get('/socios/ativar', 'UserController@showAtivarDesativar');
 
 Route::resource('socios', 'UserController')->parameters(['socios' => 'user']);
+
 
 
 

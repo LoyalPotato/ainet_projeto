@@ -9,6 +9,7 @@ use Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\UserCreated;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -19,21 +20,26 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = User::paginate(5);
+        $user = Auth::user();
         $pagetitle = "Sócios";
-        return view('socios.index', compact('users', 'pagetitle'));
+        return view('socios.index', compact('user', 'pagetitle'));
     }
 
     public function show(User $user)
     {
-        $users = User::all();
-        return view('socios.index', compact('users'));
+        return view('socios.index', compact('user'));
     }
 
     public function showFichas(User $user)
     {
-        $users = User::paginate(20);
+        $users = User::paginate(10);
         return view('socios.fichas', compact('users'));
+    }
+
+    public function showFichasDirecao(User $user)
+    {
+        $users = User::paginate(10);
+        return view('socios.fichas_direcao', compact('users'));
     }
 
     public function showQuotas(User $user)
@@ -46,6 +52,14 @@ class UserController extends Controller
     {
         $users = User::paginate(5);
         return view('socios.ativar', compact('users'));
+    }
+
+    public function resetQuotas()
+    {
+        $users = User::all();
+        foreach ($users as $user) {
+            $user->quota_paga = 0;
+        }
     }
 
     public function showLicenca(User $piloto)
@@ -62,6 +76,7 @@ class UserController extends Controller
         return response()->file($path); //WORKING, but shows full page
     }
 
+
     public function create()
     {
         $this->authorize('create', User::class);
@@ -73,13 +88,16 @@ class UserController extends Controller
 
     public function store(StoreUserRequest $request)
     {
+        $this->authorize('create', User::class);
+        $validated = $request->validated();
+
         $image = $request->file('foto_url');
         $name = time() . '.' . $image->getClientOriginalExtension();
         $path = $request->file('foto_url')->storeAs('public/fotos', $name);
 
         $user = new User();
         $user->fill($request->all());
-        $user->image = $name;
+        $user->foto_url = $name;
         $user->password = Hash::make($request->password);
         $user->save();
 
@@ -97,15 +115,15 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        $this->authorize('edit', $user);
+        $this->authorize('ativo', $user);
 
-        $pagetitle = "Editar um sócio";
-        return view('socios.edit', compact('user', 'pagetitle'));
+        return view('socios.edit', compact('user'));
     }
 
     public function update(UpdateUserRequest $request, User $user)
     {
         $this->authorize('update', $user);
+        $validated = $request->validated();
 
         if (!is_null($request['foto_url'])) {
             $image = $request->file('foto_url');
@@ -115,7 +133,7 @@ class UserController extends Controller
         }
 
         $user->fill($request->validated());
-        $user->image = $name;
+        $user->foto_url = $name;
         $user->save();
 
         return redirect()

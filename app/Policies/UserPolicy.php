@@ -26,22 +26,22 @@ class UserPolicy
         return $user->direcao;
     }
 
+    public function edit(User $user)
+    {
+        return $user->direcao;
+    }
+
     public function ativo(User $user)
     {
         return $user->ativo;
     }
     
-    public function delete(User $user)
+    public function fichas(User $user)
     {
-        return $user->direcao;
+        return $user->direcao == 0;
     }
 
     public function update(User $user)
-    {
-        return $user->direcao;
-    }
-
-    public function edit(User $user)
     {
         return $user->direcao;
     }
@@ -51,9 +51,13 @@ class UserPolicy
         return $user->tipo_socio == 'P';
     }
 
+    public function delete(User $user)
+    {
+        return $user->direcao;
+    }
+
     public function viewCertLice(User $user)
     {
         return $user->tipo_socio == 'P' || $user->direcao;
     }
-
 }
