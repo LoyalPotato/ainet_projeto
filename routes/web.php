@@ -61,7 +61,7 @@ Route::patch('/socios/desativar_sem_quotas', 'UserController@deactivateSocios')-
 
 Route::post('/socios/{socio}/send_reactivate_mail', 'UserController@create');
 
-Route::get('/socios/fichas', 'UserController@showFichas');
+Route::get('/socios/fichas', 'UserController@showFichas')->name('socios.fichas');
 Route::get('/socios/fichas_direcao', 'UserController@showFichasDirecao');
 Route::get('/socios/quotas', 'UserController@showQuotas');
 Route::get('/socios/ativar', 'UserController@showAtivarDesativar');

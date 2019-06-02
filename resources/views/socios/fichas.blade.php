@@ -7,7 +7,7 @@
 @include('layouts.errors')
 @if (count($users))
 <div class="container">
-    <form action="/socios/fichas_direcao" method="GET" role="form" class="inline">
+    <form method="GET" action="{{route('socios.fichas')}}"  role="form" class="inline">
                     <table class="table table-sm table-striped">
                         <thead>
                             <tr>
@@ -33,7 +33,7 @@
                                 <th>
                                 <label for="tipo_socio" style="color:blue;">Tipo Sócio</label>
                                     <select name="tipo_socio" id="tipo_socio" class="form-control">
-                                            <option value="Seleciona opcao"></option>
+                                            <option value =""disabled selected>Selecione uma opcao</option>
                                             <option value="P">Piloto</option>
                                             <option value="NP">Não piloto</option>
                                             <option value="A">Aeromodelista</option>
@@ -43,7 +43,7 @@
                                 <th>
                                 <label for="sexo" style="color:blue;">Sexo</label>
                                     <select name="sexo" id="sexo" class="form-control">
-                                            <option value="Selecione opcao"></option>
+                                            <option value =""disabled selected>Selecione uma opcao</option>
                                             <option value="M">Masculino</option>
                                             <option value="F">Feminino</option>
                                     </select>
@@ -51,7 +51,7 @@
                             </tr>
                         </thead>
                     </table>
-                    <button type="submit" class="btn btn-primary">Filtrar</button>    
+                    <button type="submit" class="btn btn-primary m-2">Filtrar</button>    
         </form>
 </div>
 
@@ -62,7 +62,6 @@
 
 
 <div class="container">
-<input id="myInput" class="container" type="text" placeholder="Procurar....">
 <table class="table table-sm table-striped">
     <thead>
         <tr>

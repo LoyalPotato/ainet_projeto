@@ -38,54 +38,54 @@ class Movimento extends Model
 		return $this->hasOne('App\User', 'id', 'instrutor_id');
 	}
 
-    public static function filtrar(Request $request)
-    {
-        $user= auth()->user();
+    // public static function filtrar(Request $request)
+    // {
+    //     $user= auth()->user();
         
-        $movimentos=Movimento::where('id','<',100000000000000);
-        
-
-        $id = $request->input('id');
-        $aeronave = $request->input('aeronave');
-        $data_inf = $request->input('data_inf');
-        $data_sup = $request->input('data_sup');
-        $natureza = $request->input('natureza');
-        $confirmado = $request->input('confirmado');
-        $piloto = $request->input('piloto');
-        $instrutor = $request->input('instrutor');
-        $meus_movimentos = $request->input('meus_movimentos');
+    //     $movimentos=Movimento::where('id','<',100000000000000);
         
 
-        if ($id) {
-            $movimentos=$movimentos->where('id',$id);
-        }
-        if ($aeronave) {
-            $movimentos=$movimentos->where('aeronave',$aeronave);
-        }
-        if ($data_inf) {
-            $movimentos=$movimentos->where('data','<',$data_inf);
-        }
-        if ($data_sup) {
-            $movimentos=$movimentos->where('data','>',$data_sup);
-        }
-        if ($natureza) {
-            $movimentos=$movimentos->where('natureza',$natureza);
-        }
-        if ($confirmado=='0') {
-            $movimentos=$movimentos->where('confirmado',$confirmado);
-        }
-        if ($piloto) {
-            $movimentos=$movimentos->where('piloto_id',$piloto);
-        }
-        if ($instrutor) {
-            $movimentos=$movimentos->where('instrutor_id',$instrutor);
-        }
-        if ($meus_movimentos) {
-            $movimentos=$movimentos->where('piloto_id',$user->id)->orWhere('instrutor_id',$user->id);           
+    //     $id = $request->input('id');
+    //     $aeronave = $request->input('aeronave');
+    //     $data_inf = $request->input('data_inf');
+    //     $data_sup = $request->input('data_sup');
+    //     $natureza = $request->input('natureza');
+    //     $confirmado = $request->input('confirmado');
+    //     $piloto = $request->input('piloto');
+    //     $instrutor = $request->input('instrutor');
+    //     $meus_movimentos = $request->input('meus_movimentos');
+        
 
-        }
-        return $movimentos;
-    }
+    //     if ($id) {
+    //         $movimentos=$movimentos->where('id',$id);
+    //     }
+    //     if ($aeronave) {
+    //         $movimentos=$movimentos->where('aeronave',$aeronave);
+    //     }
+    //     if ($data_inf) {
+    //         $movimentos=$movimentos->where('data','<',$data_inf);
+    //     }
+    //     if ($data_sup) {
+    //         $movimentos=$movimentos->where('data','>',$data_sup);
+    //     }
+    //     if ($natureza) {
+    //         $movimentos=$movimentos->where('natureza',$natureza);
+    //     }
+    //     if ($confirmado=='0') {
+    //         $movimentos=$movimentos->where('confirmado',$confirmado);
+    //     }
+    //     if ($piloto) {
+    //         $movimentos=$movimentos->where('piloto_id',$piloto);
+    //     }
+    //     if ($instrutor) {
+    //         $movimentos=$movimentos->where('instrutor_id',$instrutor);
+    //     }
+    //     if ($meus_movimentos) {
+    //         $movimentos=$movimentos->where('piloto_id',$user->id)->orWhere('instrutor_id',$user->id);           
+
+    //     }
+    //     return $movimentos;
+    // }
     
 
     

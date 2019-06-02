@@ -6,7 +6,7 @@
 <div class="container">
     @include('layouts.errors')
 
-    <form action="{{route('movimentos.index')}}" method="GET" role="form" class="inline">
+    <form method="GET" action="{{route('movimentos.index')}}" role="form" class="inline">
                 
                     <table class="table table-striped">
                         <thead>

@@ -26,9 +26,14 @@ class UserController extends Controller
     }
 
 
-    public function showFichas(User $user)
+    public function showFichas(Request $request)
     {
-        $users = User::paginate(10);
+        // NOTE: Nao funciona com o paginate
+        $users = User::filter($request);
+        // dd($users);
+        // NOTE: paginate 
+        $users = $users->paginate(20);
+        // $users = User::paginate(10);
         return view('socios.fichas', compact('users'));
     }
 
@@ -165,7 +170,7 @@ class UserController extends Controller
 
     public function resetQuotas()
     {
-        $this->authorize('update', auth()->user());
+        $this->authorize('reset', auth()->user());
 
         $users = User::all();
         foreach($users as $user)
@@ -181,7 +186,7 @@ class UserController extends Controller
 
     public function deactivateSocios()
     {
-        $this->authorize('update', auth()->user());
+        $this->authorize('reset', auth()->user());
         
         $users = User::all();
         foreach($users as $user)
@@ -199,7 +204,7 @@ class UserController extends Controller
 
     public function ativarDesativarQuota(Request $request, User $socio)
     {
-        $this->authorize('update', auth()->user());
+        $this->authorize('update', auth()->user(), $socio);
         $socio->quota_paga = $request->quota_paga;
         $socio->save();
 
@@ -208,7 +213,7 @@ class UserController extends Controller
 
     public function ativarDesativarSocio(Request $request, User $socio)
     {
-        $this->authorize('update', auth()->user());
+        $this->authorize('update', auth()->user(), $socio);
 
         $socio->ativo = $request->ativo;
         $socio->save();
@@ -216,6 +221,6 @@ class UserController extends Controller
         return redirect()->back();
     }    
 
-
+    
 
 }

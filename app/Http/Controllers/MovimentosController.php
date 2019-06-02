@@ -27,7 +27,7 @@ class MovimentosController extends Controller
 
         $movimentos=Movimento::where('id','<',100000000000000);
         $aeronaves=Aeronave::all();
-
+        
         $id = $request->input('id');
         $aeronave = $request->input('aeronave');
         $data_inf = $request->input('data_inf');
@@ -54,7 +54,7 @@ class MovimentosController extends Controller
 
             $movimentos=$movimentos->where('data','<=',$dataSup);
         }
-    
+        
         if ($natureza) {
             $movimentos=$movimentos->where('natureza',$natureza);
         }
@@ -72,9 +72,9 @@ class MovimentosController extends Controller
         }
         if ($meus_movimentos) {
             $movimentos=$movimentos->where('piloto_id',$user->id)->orWhere('instrutor_id',$user->id);           
-
+            
         }
-
+        
         $movimentos = $movimentos->paginate(15);
         $users = User::all();
         

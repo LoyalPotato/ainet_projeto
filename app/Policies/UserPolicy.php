@@ -20,6 +20,10 @@ class UserPolicy
     {
         return $user->direcao; 
     }
+    public function reset(User $user)
+    {
+        return $user->direcao; 
+    }
 
     public function create(User $user)
     {

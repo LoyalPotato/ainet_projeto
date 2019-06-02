@@ -5,15 +5,15 @@
 
 {{-- TODO: Fazer quotas single --}}
 
+@can('view', auth()->user())
+
 <div class="container mb-4">
     <h3> Quotas dos sócios </h3>
-    @can('view', auth()->user())
     <form action="socios/reset_quotas" method="POST">
         @method('PATCH')
         @csrf
         <button type="submit" class="btn btn-outline-primary mb-2">Reinicar Quotas</button>
     </form>
-    @endcan
 </div>
 <div class="container">
     <table class="table table-sm table-striped">
@@ -63,5 +63,5 @@
     {{ $users->links() }}
     @endif
 </div>
-
+@endcan
 @endsection

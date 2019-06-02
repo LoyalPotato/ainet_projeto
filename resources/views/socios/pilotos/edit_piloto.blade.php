@@ -42,7 +42,6 @@
     <a class="navbar-brand" href="{{ route('piloto_lic', $user->id) }}">
             Ver licença atual
         </a>
-        {{-- TODO: Download link --}}
     <input type="file" name="file_licenca" id="file_licenca" class="form-control" value="{{ $user->file_licenca }}">
     @endcan
     <?php
