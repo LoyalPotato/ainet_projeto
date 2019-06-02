@@ -26,7 +26,7 @@ class UpdateUserRequest extends FormRequest
     {
             return [
                 'num_socio' => ['required', 'max:4', 'integer'],
-                'email' => ['required', 'email', 'unique'],
+                'email' => ['required', 'email'],
                 'nome_informal' => ['required', 'alpha_num'],
                 'name' => ['required','alpha'],
                 'tipo_socio' => ['required', Rule::in(['P', 'NP', 'A'])],

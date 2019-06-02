@@ -58,7 +58,7 @@
                         role="form" class="inline">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger ml-2">Remover autorização</button>
+                        <button type="submit" class="btn btn-outline-danger ml-2">Remover autorização</button>
                     </form>
                 </td>
             </tr>
@@ -121,7 +121,7 @@
                     <form method="POST" action="{{route('store_apiloto', [$aeronave->matricula, $user_not_auto->id])}}"
                         role="form" class="inline">
                         @csrf
-                        <button type="submit" class="btn btn-primary mb-2 float-left">Adicionar autorização</button>
+                        <button type="submit" class="btn btn-outline-primary mb-2 float-left">Adicionar autorização</button>
                     </form>
                 </td>
             </tr>

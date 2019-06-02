@@ -56,7 +56,7 @@
                         class="inline">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger ml-2">Apagar</button>
+                        <button type="submit" class="btn btn-outline-danger ml-2">Apagar</button>
                     </form>
                 </td>
             </tr>

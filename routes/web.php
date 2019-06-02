@@ -54,14 +54,12 @@ Route::get('/pilotos/{piloto}/licenca', 'UserController@showLicenca')->name('pil
 
 //-----------          Marce                 --------------------
 
-Route::patch('/socios/{socio}/quota', 'UserController@ativarDesativarQuota')->name('ativarDesativarQuota');
+Route::patch('/socios/{socio}/quotas', 'UserController@ativarDesativarQuota')->name('ativarDesativarQuota');
 Route::patch('/socios/{socio}/ativo', 'UserController@ativarDesativarSocio')->name('ativarDesativarSocio');
 Route::patch('/socios/reset_quotas', 'UserController@resetQuotas')->name('socios.quotas');
 Route::patch('/socios/desativar_sem_quotas', 'UserController@deactivateSocios')->name('socios.ativar');
-Route::patch('/socios/{user}/ativo', 'UserController@showQuotas');
 
 Route::post('/socios/{socio}/send_reactivate_mail', 'UserController@create');
-Route::put('/socios/{user}/edit', 'UserController@update');
 
 Route::get('/socios/fichas', 'UserController@showFichas');
 Route::get('/socios/fichas_direcao', 'UserController@showFichasDirecao');

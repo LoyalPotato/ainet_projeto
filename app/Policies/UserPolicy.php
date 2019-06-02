@@ -41,9 +41,9 @@ class UserPolicy
         return $user->direcao == 0;
     }
 
-    public function update(User $user)
+    public function update(User $user, User $edit_user)
     {
-        return $user->direcao;
+        return $user->direcao || $user->id == $edit_user->id ;
     }
 
     public function piloto(User $user)

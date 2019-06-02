@@ -25,10 +25,6 @@ class UserController extends Controller
         return view('socios.index', compact('user', 'pagetitle'));
     }
 
-    public function show(User $user)
-    {
-        return view('socios.index', compact('user'));
-    }
 
     public function showFichas(User $user)
     {
@@ -122,14 +118,13 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        $this->authorize('ativo', $user);
+        $this->authorize('update', $user);
 
         return view('socios.edit', compact('user'));
     }
 
     public function update(UpdateUserRequest $request, User $user)
     {
-        $this->authorize('update', $user);
 
         if(! is_null($request['file_foto'])) {
             $image = $request->file('file_foto');
@@ -170,6 +165,8 @@ class UserController extends Controller
 
     public function resetQuotas()
     {
+        $this->authorize('update', auth()->user());
+
         $users = User::all();
         foreach($users as $user)
         {
@@ -184,6 +181,8 @@ class UserController extends Controller
 
     public function deactivateSocios()
     {
+        $this->authorize('update', auth()->user());
+        
         $users = User::all();
         foreach($users as $user)
         {
@@ -198,30 +197,23 @@ class UserController extends Controller
             ->with('success', 'Socios com quotas por pagar desativados com sucesso!');
     }
 
-    public function ativarDesativarQuota(UpdateUserRequest $request, User $user)
+    public function ativarDesativarQuota(Request $request, User $socio)
     {
-        if ( $user->quota_paga == 1 ) {
-            $user->quota_paga = 0;
-        }
-        
-        $user->quota_paga = $request->botao;
-        $user->save();
+        $this->authorize('update', auth()->user());
+        $socio->quota_paga = $request->quota_paga;
+        $socio->save();
 
-        return redirect()
-            ->route('socios.quotas');
+        return redirect()->back();
     }
 
-    public function ativarDesativarSocio(UpdateUserRequest $request, User $user)
+    public function ativarDesativarSocio(Request $request, User $socio)
     {
-        if ( $user->ativo == 1 ) {
-            $user->ativo = 0;
-        }
+        $this->authorize('update', auth()->user());
 
-        $user->ativo = $request->botao;
-        $user->save();
+        $socio->ativo = $request->ativo;
+        $socio->save();
         
-        return redirect()
-            ->route('socios.quotas');
+        return redirect()->back();
     }    
 
 
