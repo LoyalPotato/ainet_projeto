@@ -26,9 +26,9 @@ class UpdateUserRequest extends FormRequest
     {
             return [
                 'num_socio' => ['required', 'max:4', 'integer'],
-                'email' => ['required', 'email'],
-                'nome_informal' => ['required', 'string'],
-                'name' => ['required', 'string'],
+                'email' => ['required', 'email', 'unique'],
+                'nome_informal' => ['required', 'alpha_num'],
+                'name' => ['required','alpha'],
                 'tipo_socio' => ['required', Rule::in(['P', 'NP', 'A'])],
                 'sexo' => ['required', Rule::in(['M', 'F'])], 
                 'quota_paga' => ['required', 'between:0,1'],
@@ -36,8 +36,8 @@ class UpdateUserRequest extends FormRequest
                 'direcao' => ['required', 'between:0,1'],
                 'data_nascimento' => ['date'],
                 'nif' => ['required', 'min:9', 'max:9'],
-                'endereco' => ['required', 'string'],
-                'telefone' => ['required', 'min:9', 'max:14'], 
+                'endereco' => ['required', 'alpha'],
+                'telefone' => ['required', 'min:9', 'max:20'], 
                 'foto_url' => ['required', 'image', 'max:2048'],
                 'aluno' => ['between:0,1'],
                 'instrutor' => ['between:0,1'],

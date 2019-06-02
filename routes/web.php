@@ -17,7 +17,6 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 
-// NOTE: Inves de middleware de ativo, poderia ter usado o verified?
 Route::get('/home', 'HomeController@index')->name('home')->middleware('ativo');
 
 
@@ -55,7 +54,8 @@ Route::get('/pilotos/{piloto}/licenca', 'UserController@showLicenca')->name('pil
 
 //-----------          Marce                 --------------------
 
-Route::patch('/socios/{user}/quota', 'UserController@ativarDesativarQuota');
+Route::patch('/socios/{socio}/quota', 'UserController@ativarDesativarQuota')->name('ativarDesativarQuota');
+Route::patch('/socios/{socio}/ativo', 'UserController@ativarDesativarSocio')->name('ativarDesativarSocio');
 Route::patch('/socios/reset_quotas', 'UserController@resetQuotas')->name('socios.quotas');
 Route::patch('/socios/desativar_sem_quotas', 'UserController@deactivateSocios')->name('socios.ativar');
 Route::patch('/socios/{user}/ativo', 'UserController@showQuotas');

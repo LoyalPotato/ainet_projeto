@@ -7,11 +7,8 @@ use App\Http\Requests\UpdateUserRequest;
 use App\User;
 use Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use App\Notifications\SocioCriado;
-use Illuminate\Support\Facades\Storage;
-
-
 
 class UserController extends Controller
 {
@@ -145,6 +142,7 @@ class UserController extends Controller
         $user->foto_url = $name;
         $user->save();
 
+
         return redirect()
             ->route('socios.index')
             ->with('success', 'Utilizador atualizado com sucesso!');
@@ -153,7 +151,7 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $this->authorize('delete', $user);
-        // TODO:
+
         /*
         if ($user->movimentos->isEmpty()) {
             $user->forceDelete();
@@ -199,6 +197,32 @@ class UserController extends Controller
             ->route('socios.index')
             ->with('success', 'Socios com quotas por pagar desativados com sucesso!');
     }
+
+    public function ativarDesativarQuota(UpdateUserRequest $request, User $user)
+    {
+        if ( $user->quota_paga == 1 ) {
+            $user->quota_paga = 0;
+        }
+        
+        $user->quota_paga = $request->botao;
+        $user->save();
+
+        return redirect()
+            ->route('socios.quotas');
+    }
+
+    public function ativarDesativarSocio(UpdateUserRequest $request, User $user)
+    {
+        if ( $user->ativo == 1 ) {
+            $user->ativo = 0;
+        }
+
+        $user->ativo = $request->botao;
+        $user->save();
+        
+        return redirect()
+            ->route('socios.quotas');
+    }    
 
 
 

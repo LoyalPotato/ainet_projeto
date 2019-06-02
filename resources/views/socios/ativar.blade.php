@@ -37,7 +37,7 @@
             <td>{{$user->ativo}}</td>
             @can('create', \App\User::class)
             <td>
-            <form method="POST" action="/socios/{{$user->user}}">
+            <form method="POST" action="{{route('ativarDesativarSocio', $user->id)}}">
                 @method('PATCH')
                 @csrf
                 <div class="form-group mb-2">
@@ -47,7 +47,7 @@
                         <option value="0" {{ old('ativo', strval($user->ativo)) == 0 ? 'selected' : '' }} >Desativado</option>
                     </select>
                 </div>
-                <button class="btn btn-primary" type="submit" name="submit">Submeter</button>
+                <button class="btn btn-primary" type="submit" name="name=">Submeter</button>
             </form>
             </td>
             @endcan

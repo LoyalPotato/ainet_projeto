@@ -3,22 +3,24 @@
 @section('title', 'Tabela socios')
 @section('content')
 
+
+@include('layouts.errors')
 @if (count($users))
 <div class="container">
-    <form action="/socios/fichas" method="GET" role="form" class="inline">
+    <form action="/socios/fichas_direcao" method="GET" role="form" class="inline">
                     <table class="table table-sm table-striped">
                         <thead>
                             <tr>
                                 <th>
-                                <label for="num_socio" class="mr-2">Numero Socio</label>
+                                <label for="num_socio" class="mr-2" style="color:blue;">Numero Socio</label>
                                     <input type="text" class="form-control" name="num_socio" id="num_socio" value="{{ old('num_socio') }}">
                                 </th>
                                 <th>
-                                <label for="nome_informal" class="mr-2">Nome Informal</label>
+                                <label for="nome_informal" class="mr-2" style="color:blue;">Nome Informal</label>
                                     <input type="text" class="form-control" name="nome_informal" id="nome_informal" value="{{ old('nome_informal') }}">
                                 </th>
                                 <th>
-                                <label for="email" class="mr-2">Email</label>
+                                <label for="email" class="mr-2" style="color:blue;">Email</label>
                                     <input type="email" class="form-control" name="email" id="email" value="{{ old('email') }}">
                                 </th>
                             </tr>
@@ -29,7 +31,7 @@
                         <thead>
                             <tr>
                                 <th>
-                                <label for="tipo_socio">Tipo Sócio</label>
+                                <label for="tipo_socio" style="color:blue;">Tipo Sócio</label>
                                     <select name="tipo_socio" id="tipo_socio" class="form-control">
                                             <option value="Seleciona opcao"></option>
                                             <option value="P">Piloto</option>
@@ -39,7 +41,7 @@
                                 </th>
 
                                 <th>
-                                <label for="sexo">Sexo</label>
+                                <label for="sexo" style="color:blue;">Sexo</label>
                                     <select name="sexo" id="sexo" class="form-control">
                                             <option value="Selecione opcao"></option>
                                             <option value="M">Masculino</option>
@@ -49,9 +51,7 @@
                             </tr>
                         </thead>
                     </table>
-                    <div class="container float-left mb-4">
-                        <button type="submit" class="btn btn-primary">Filtrar</button>
-                    </div>
+                    <button type="submit" class="btn btn-primary">Filtrar</button>    
         </form>
 </div>
 

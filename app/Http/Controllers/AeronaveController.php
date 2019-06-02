@@ -109,6 +109,7 @@ class AeronaveController extends Controller
      */
     public function showValores(Aeronave $aeronave)
     {
+        //NOTE: Feito com DB para nao mostrar o ID
         $naves_valores = DB::table('aeronaves_valores')
             ->select('unidade_conta_horas')
             ->addSelect('minutos')
