@@ -9,6 +9,7 @@ use Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\SocioCriado;
 
 class UserController extends Controller
 {
@@ -92,14 +93,17 @@ class UserController extends Controller
 
     public function store(StoreUserRequest $request)
     {
+
+        // TODO: class_socio 2019-06-24
         $this->authorize('create', User::class);
         $validated = $request->validated();
-        $image = $request->file('file_foto');
+        $image = $request->file('foto_url');
         $name = time() . '.' . $image->getClientOriginalExtension();
-        $request->file('file_foto')->storeAs('public/fotos', $name);
+        $request->file('foto_url')->storeAs('public/fotos', $name);
         $user = new User();
         $user->fill($validated);
         $user->foto_url = $name;
+        // dd($user);
         $user->password = Hash::make($validated['data_nascimento']);
         $user->save();
         
@@ -131,15 +135,15 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
 
-        if(! is_null($request['file_foto'])) {
-            $image = $request->file('file_foto');
+        if(! is_null($request['foto_url'])) {
+            $image = $request->file('foto_url');
             $name = time().'.'.$image->getClientOriginalExtension();
             $path = $request->file('')->storeAs('public/fotos', $name);
+            $user->foto_url = $name;
         }
-
-
-        $user->fill($request->validated());
-        $user->foto_url = $name;
+        
+        $user->fill($request->validated()); //NOTE: Por alguma razao nao estava a fazer fill do classe_socio
+       // $user->classe_socio = $request->validated()['classe_socio'];
         $user->save();
 
 
@@ -221,6 +225,6 @@ class UserController extends Controller
         return redirect()->back();
     }    
 
-    
+
 
 }

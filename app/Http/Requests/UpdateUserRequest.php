@@ -25,8 +25,9 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
             return [
-                'num_socio' => ['required', 'max:4', 'integer'],
+                'num_socio' => ['required', 'integer'],
                 'email' => ['required', 'email'],
+                'classe_socio' => [Rule::in('N', 'C', 'M', 'H', ""), 'nullable'],
                 'nome_informal' => ['required', 'alpha_num'],
                 'name' => ['required','alpha'],
                 'tipo_socio' => ['required', Rule::in(['P', 'NP', 'A'])],
@@ -38,7 +39,7 @@ class UpdateUserRequest extends FormRequest
                 'nif' => ['required', 'min:9', 'max:9'],
                 'endereco' => ['required', 'alpha'],
                 'telefone' => ['required', 'min:9', 'max:20'], 
-                'foto_url' => ['required', 'image', 'max:2048'],
+                'file_foto' => [ 'image', 'max:2048'],
                 'aluno' => ['between:0,1'],
                 'instrutor' => ['between:0,1'],
                 'num_licenca' => ['alpha_dash'],

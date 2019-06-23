@@ -15,6 +15,7 @@ class AeronaveController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('verified');
         $this->middleware('ativo');
 
     }
@@ -49,11 +50,6 @@ class AeronaveController extends Controller
     public function store(StoreAeronave $request)
     {
 
-        /* 
-        Na tabela pode-se definir que 6 unidades de tempo nessa aeronave
-        correspondem a 35 minutos e 65€, permitindo desta forma a utilização de valores
-        arredondados e mais fáceis de gerir
-        */
         // NOTE: Tem (user) autorizacao para criar Definido no store aero
         $this->authorize('create', Aeronave::class);
         $validated = $request->validated();
@@ -96,6 +92,7 @@ class AeronaveController extends Controller
      */
     public function show(Aeronave $aeronave)
     {
+        $this->authorize('view', auth()->user(),  $aeronave);
         $naves = array($aeronave);
         $naves_valores = $aeronave->valores;
         return view('aeronaves.aeronaves', compact('naves', 'naves_valores'));

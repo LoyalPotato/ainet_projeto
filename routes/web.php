@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 
-Route::get('/home', 'HomeController@index')->name('home')->middleware('ativo');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 
 
 
@@ -51,6 +51,10 @@ Route::resource('aeronaves', 'AeronaveController')->parameters(['aeronaves' => '
 Route::get('/pilotos/{piloto}/certificado', 'UserController@showCertificado')->name('piloto_cert');
 Route::get('/pilotos/{piloto}/licenca', 'UserController@showLicenca')->name('piloto_lic');
 
+Route::resource('aerodromos', 'AerodromosController')->parameters(['aerodromos' => 'aerodromo']);
+// Route::get('/aerodromos', 'AerodromosController@index')->name('aerodromos_list');
+// Route::get('/aerodromos/{aerodomo}/edit', 'AerodromosController@edit')->name('aerodromos_edit');
+// Route::put('/aerodromos/{aerodomo}', 'AerodromosController@update')->name('aerodromos_update');
 
 //-----------          Marce                 --------------------
 

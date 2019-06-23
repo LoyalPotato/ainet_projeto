@@ -19,9 +19,10 @@ class AeronavePolicy
      */
     public function view(User $user, Aeronave $aeronave)
     {
-        return $user->direcao;
+        return $user->direcao && $user->hasVerifiedEmail() && $user->ativo;
     }
 
+    
     /**
      * Determine whether the user can create aeronaves.
      *

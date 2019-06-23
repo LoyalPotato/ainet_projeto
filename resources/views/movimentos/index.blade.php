@@ -42,7 +42,14 @@
                                             <option value="0">Não</option>
                                         </select> 
                                 </th>
-
+                                
+                                <th>
+                                    <p style="color:blue;">Numero de Aterragens: <p>                      
+                                        <input
+                                        type="number" class="form-control"
+                                        name="num_aterragens" id="num_aterragens"
+                                        value="{{ old('num_aterragens') }}"/>
+                                </th>
 
 
                                 

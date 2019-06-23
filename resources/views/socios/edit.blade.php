@@ -19,7 +19,7 @@
             <img src="{{ $user->foto_url == null ? asset('storage/fotos/noimage.jpg') : asset('storage/fotos/' . $user->foto_url)}}"
                 class="img-thumbnail" />
             <br /><br />
-            <input type="file" name="file_foto" class="form-control">
+            <input type="file" name="foto_url" class="form-control">
         </div>
 
         <div class="container mb-2">
@@ -97,6 +97,18 @@
                 <option value="1" {{ old('direcao', strval($user->direcao)) == 1 ? 'selected' : '' }}>Sim</option>
             </select>
         </div>
+
+        <div class="col-md-12 mb-6">
+            <label for="classe_socio">Classe de Socio</label>
+            <select name="classe_socio" id="classe_socio" class="form-control" value="{{ $user->classe_socio}}">
+                <option value="" selected>Nenhuma</option>
+                <option value="N" {{ old('classe_socio', strval($user->classe_socio)) == "N" ? 'selected' : '' }}>Normal </option>
+                <option value="C" {{ old('classe_socio', strval($user->classe_socio)) == "M" ? 'selected' : '' }}>Correspondente</option>
+                <option value="M" {{ old('classe_socio', strval($user->classe_socio)) == "C" ? 'selected' : '' }}>Menor</option>
+                <option value="H" {{ old('classe_socio', strval($user->classe_socio)) == "H" ? 'selected' : '' }}>Honorário</option>
+            </select>
+        </div>
+        
 
         <div class="col-md-12 mb-6">
             <label for="tipo_socio">Tipo Sócio</label>

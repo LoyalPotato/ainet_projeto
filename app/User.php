@@ -24,7 +24,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'sexo', 'password', 'aluno', 'instrutor', 'num_licenca',
         'tipo_licenca', 'validade_licenca', 'licença_confirmada',
         'num_certificado', 'classe_certificado', 'validade_certificado',
-        'certificado_confirmado'
+        'certificado_confirmado', 'classe_socio'
     ];
 
     /**

@@ -39,6 +39,7 @@ class MovimentosController extends Controller
         $meus_movimentos = $request->input('meus_movimentos');
         $dataInf = date("Y-m-d", strtotime($data_inf));
         $dataSup = date("Y-m-d", strtotime($data_sup));
+        $num_aterragens = $request->input('num_aterragens');
         if ($id) {
             $movimentos=$movimentos->where('id',$id);
         }
@@ -72,7 +73,11 @@ class MovimentosController extends Controller
         }
         if ($meus_movimentos) {
             $movimentos=$movimentos->where('piloto_id',$user->id)->orWhere('instrutor_id',$user->id);           
-            
+        }
+        //NOTE: Continua a mostrar so para o primeiro
+        // FIXME: Retirar o paginate resolverá prolly
+        if($num_aterragens){
+            $movimentos=$movimentos->where('num_aterragens', '=' ,$num_aterragens);           
         }
         
         $movimentos = $movimentos->paginate(15);

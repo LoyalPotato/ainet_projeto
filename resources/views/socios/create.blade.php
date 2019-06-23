@@ -32,7 +32,7 @@
     <div class="col-md-12 mb-4">
         <img src="{{ $user->foto_url == null ? asset('storage/fotos/noimage.jpg') : asset('storage/fotos/' . $user->foto_url)}}" class="img-thumbnail"/>
         <br/><br/>
-        <input type="file" name="file_foto" class="form-control" required>
+        <input type="file" name="foto_url" class="form-control" required>
     </div> 
 
     <div class="container mb-2">
@@ -110,7 +110,18 @@
                 <option value="1" {{ old('direcao', strval($user->direcao)) == 1 ? 'selected' : '' }} >Sim</option>
             </select>
     </div>
-
+    
+    <div class="container mb-4">
+        <label for="classe_socio">Classe de Socio</label>
+            <select name="classe_socio" onchange="yesnoCheck(this);" id="classe_socio" class="form-control">
+                <option value="" selected>Nenhuma</option>
+                <option value="N" {{ old('classe_socio', strval($user->classe_socio)) == "N" ? 'selected' : '' }} >Normal</option>
+                <option value="C" {{ old('classe_socio', strval($user->classe_socio)) == "C" ? 'selected' : '' }} >Correspondente</option>
+                <option value="M" {{ old('classe_socio', strval($user->classe_socio)) == "M" ? 'selected' : '' }} >Menor</option>
+                <option value="H" {{ old('classe_socio', strval($user->classe_socio)) == "H" ? 'selected' : '' }} >Honorário</option>
+            </select>
+    </div>
+    
     <div class="container mb-4">
         <label for="tipo_socio">Tipo Sócio</label>
             <select name="tipo_socio" onchange="yesnoCheck(this);" id="tipo_socio" class="form-control">
@@ -128,8 +139,6 @@
     <div class="container mb-2">
         <button type="submit" class="btn btn-success">Adicionar</button>
         <a type="submit" class="btn btn-default" href="{{route('socios.index')}}">Cancelar</a>
-    <a type="submit" class="btn btn-primary float-right" href="route{{'verification.resend'}}">Reenviar confirmação email</a>
-    {{-- TEST: --}}
     </div>
 
 

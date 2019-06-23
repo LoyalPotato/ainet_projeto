@@ -25,8 +25,9 @@ class StoreUserRequest extends FormRequest
     public function rules()
     {
             return [
-                'num_socio' => 'required|min:1|max:4|integer',
-                'email' => 'unique| required| email',
+                'num_socio' => 'required|integer',
+                'email' => 'required| email',
+                'classe_socio' => [Rule::in('N', 'C', 'M', 'H', ""), 'nullable'],
                 'nome_informal' => 'required|alpha_num',
                 'name' => 'required|alpha',
                 'tipo_socio' => Rule::in(['P', 'NP', 'A']),
@@ -37,11 +38,11 @@ class StoreUserRequest extends FormRequest
                 'data_nascimento' => 'required|date',
                 'nif' => 'required|min:9|max:9',
                 'endereco' => 'required|alpha',
-                'telefone' => 'required|min:9|max:20',
+                'telefone' => 'required',
                 'file_foto' => 'required|image|max:2048',
                 'aluno' => 'between:0,1',
                 'instrutor' => 'between:0,1',
-                'num_licenca' => 'alpha_dash',
+                // 'num_licenca' => 'alpha_dash', 
                 'tipo_licenca' => Rule::in(['CPL(A)', 'ATPL', 'ALUNO-PPL(A)', 'ALUNO-PU', 'PPL(A)', 'PU']),
                 'validade_licenca' => '',
                 'licenca_confirmada' => 'between:0,1',
